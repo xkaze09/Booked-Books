@@ -1,0 +1,238 @@
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+    background-color: #f3ccff;
+    display: flex;
+}
+
+a{
+    text-decoration: none;
+}
+
+.mainbody{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    margin: 0;
+}
+
+.navbar{
+    margin-top: clamp(1em, 2%, 2em);
+    /* padding-left: clamp(1em, 2%, 2em); */
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    width: 20%;
+    height: 96vh;
+    /* position: relative; */
+    flex-direction: column;
+}
+
+.navitems{
+    margin: auto;
+    width: 80%;
+    height: 60%;
+    padding: auto;
+    display: flex;
+    align-self: center;
+    vertical-align: middle;
+    flex-direction: column;
+}
+
+.navitem{
+    margin-bottom: auto;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #f3ccff;
+    background-color: white;
+    /* background-color: black; */
+}
+
+#logo{
+    /* padding-top: 10%; */
+    display: block;
+}
+
+#searchbar{
+    margin-top: 1%;
+    margin-left: 1%;
+    width: 60%;
+    display: inline-block;
+    margin-left: 5%;
+    background-color: grey;
+    height: fit-content;
+    align-content: center;
+    position: relative;
+}
+
+.header{
+    margin-top: clamp(1em, 2%, 2em);    
+    display: flex; 
+    height: fit-content;
+    /* background-color: white; */
+    height: clamp(1em, 10%, 3em);
+    /* position: relative; */
+}
+
+.header-item{
+    margin-bottom: auto;
+    display: flex;
+    width: fit-content;
+    padding: 1% 5% 1% 5%;
+    margin-right: 2%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #f3ccff;
+    background-color: white;
+    vertical-align: middle;
+    /* background-color: black; */
+}
+
+.account{
+    margin-left: auto;
+    margin-right: clamp(1em, 10%, 5em);
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.dashboard{
+    margin-top: 5%;
+    border: 5% solid black;
+    border-radius: 5%;
+    display: flex;
+    width: 80%;
+    height: fit-content;
+    flex-direction: column;
+}
+
+.button{
+    background-color: transparent; /* Green */
+    border: none;
+    color: black;
+    margin: 0;
+    font: inherit;
+    width: inherit;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.button2{
+    background-color: transparent; /* Green */
+    border: none;
+    color: black;
+    margin: 0;
+    font: inherit;
+    width: inherit;
+    /* padding-right: 15%; */
+    text-align: left;
+    vertical-align: middle;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.logout{
+    background-color: red;
+}
+
+table{
+    width: inherit;
+    border: 0;
+}
+
+th,tr{
+    width: auto;
+    padding: 1%;
+    background-color: white;
+    border: 5px solid #f3ccff;
+    border-radius: 5%;
+}
+
+.genre{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0;
+    height: 100%;
+    border: 2px solid #f3ccff;
+    border-radius: 14px;
+}
+
+.cards{
+    margin-top: 15px;
+    display: flex;
+    width: inherit;
+    height: fit-content;
+    flex-direction: row;
+    position: relative;
+}
+
+.card{
+    margin-left: 10%;
+}
+
+.card:nth-child(){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    margin-top: 5%;
+    background-color: #4CAF50;
+    height: auto;
+    position: absolute;
+}
+
+.book-cover{
+    height: 160px; 
+    width: 120px;
+    background-color: aqua;
+    z-index: -1;
+}
+
+/* .book-name, .book-genre, .book-author{
+    position: absolute;
+    top: 160px;
+    left: -60px;
+    width: 120px;
+} */
+
+.book-overlay{
+    visibility: visible;
+    width: 120px;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    fill: hotpink;
+}
+
+.card-content{
+    position: relative;
+}
+
+.child {
+    display: flex;
+}
+  
+.child div {
+    flex-grow: 1;
+}
+
+.card:hover > .book-overlay{
+    visibility: visible;
+    background-color: gray;
+}
