@@ -1,12 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body>
 
-</body>
+        <!-- Navbar on left -->
+        <div class="navbar">
+            <div id="logo">
+                <a href="index.html"><img src="assets/images/logo.png" width="200"></a>
+            </div>
+            <div class="navitems">
+                <div class="navitem"><button class="button">All</button></div>
+                <div class="navitem"><button class="button">About Us</button></div>
+                <div class="navitem"><button class="button">Book Catalog</button></div>
+                <div class="navitem" style="border: 0;margin: 10%;"></div>
+                <div class="navitem"><button class="button">Rental History</button></div>
+                <div class="navitem"><button class="button">Log Out</button></div>
+            </div>
+        </div>
+
+
+        <!-- Main -->
+        <div class="mainbody">
+            <div class="header">
+                <div class="header-item"><img src="assets/images/homeicon.png" width="20px" height="20px"><button class="button" style="padding-right: 0;">Home</button></div>
+                <div class="header-item"><img src="assets/images/info.png" width="20px" height="20px"><button class="button2" style="padding-right: 0;">About Us</button></div>
+                <div class="header-item"><img src="assets/images/book.png" width="20px" height="20px"><button class="button" style="padding-right: 0;">Book Catalog</button></div>
+                <div class="account">Welcome, Username</div>
+            </div>
+            <div class="dashboard">
+                <table>
+                    <tr>
+                        <th>All</th>
+                        <th>Genre 1</th>
+                        <th>Genre 2</th>
+                        <th>Genre 3</th>
+                        <th>Genre 4</th>
+                    </tr>
+                </table>
+                <div class="genre">
+                    <input id="searchbar" onkeyup="search_animal()" type="text" name="search" placeholder="Search animals..">
+                    <div class="cards">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="book-overlay"></div>
+                                <div class="book-cover"></div>
+                            </div>
+                            <div class="book-name">Name: No Data</div>
+                            <div class="book-genre">Genre: No Data</div>
+                            <div class="book-author">Author: No Data</div>
+                        </div>
+                        <div class="card">
+
+                            <div class="book-cover"></div>
+                            <div class="book-name">Name: No Data</div>
+                            <div class="book-genre">Genre: No Data</div>
+                            <div class="book-author">Author: No Data</div>
+                        </div>
+                        <div class="card">
+                            <div class="book-cover"></div>
+                            <div class="book-name">Name: No Data</div>
+                            <div class="book-genre">Genre: No Data</div>
+                            <div class="book-author">Author: No Data</div>
+                        </div>
+                        <div class="card">
+                            <div class="book-cover"></div>
+                            <div class="book-name">Name: No Data</div>
+                            <div class="book-genre">Genre: No Data</div>
+                            <div class="book-author">Author: No Data</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
 </html>
