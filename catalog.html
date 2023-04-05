@@ -9,10 +9,26 @@
         <div id="main">
             <div class="header">
                 <img src="assets/images/logo.png" style="padding: 2% 2% 1% 2%;height:60%;">
-                <button class="header-item"><img src="assets/images/homeicon.png" width="20px" height="20px" style="vertical-align:bottom;"> Home</button>
-                <button class="header-item"><img src="assets/images/info.png" width="20px" height="20px" style="vertical-align:bottom;"> About Us</button>
-                <button class="header-item"><img src="assets/images/book.png" width="20px" height="20px" style="vertical-align:bottom;"> Book Catalog</button>
-                <div class="account-management">
+                <button class="header-item"><a href="landing.html"><img src="assets/images/homeicon.png" width="20px" height="20px" style="vertical-align:bottom;">Home</a></button>
+                <button class="header-item"><a href="catalog.html"><img src="assets/images/info.png" width="20px" height="20px" style="vertical-align:bottom;">About Us</a></button>
+                <button class="header-item"><a href="about.html"><img src="assets/images/book.png" width="20px" height="20px" style="vertical-align:bottom;">Book Catalog</a></button>
+                <!-- A button to open the popup form -->
+                <button class="open-button header-item" onclick="openLogin()">Account</button>
+
+                <!-- The form -->
+                <div class="form-popup" id="accountLogin">
+                    <form action="/action_page.php" class="form-container">
+                        <h1 style="margin-bottom: 10%;">Login</h1>
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" name="email" required>
+
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+
+                        <button type="submit" class="btn">Login</button>
+                        <button type="button" class="btn cancel" onclick="closeLogin()">Close</button>
+                    </form>
                 </div>
             </div>
             <div class="main-body">
