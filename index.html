@@ -1,81 +1,305 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="style.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    </head>
-    <body>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Booked Books | Home</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		<!-- Website favicon -->
+		<link rel="shortcut icon" type="image/png" href="./images/main-logo-favicon.png">
+		<!-- Normalize.css for consistent styling across browsers -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+		<!-- Icomoon.css for icon fonts -->
+		<link rel="stylesheet" href="icomoon/icomoon.css">
+		<!-- Vendor.css for third-party libraries or frameworks -->
+		<link rel="stylesheet" href="css/vendor.css">
+		<!-- Style.css for custom styles -->
+		<link rel="stylesheet" href="style.css">
+	</head>
+<body>
+<!-- Header -->
+<div id="header-wrap">
+	<header id="header">
+		<div class="container">
+			<div class="row">
+				<!-- Logo -->
+				<div class="col-md-2">
+					<div class="main-logo">
+						<a href="index.html"><img src="images/main-logo.png" alt="logo"></a>
+					</div>
+				</div>
+				<!-- Navbar -->
+				<div class="col-md-10">
+					<nav id="navbar">
+						<div class="main-menu stellarnav">
+							<ul class="menu-list">
+								<li class="menu-item active"><a href="./index.html" class="nav-link" data-effect="Home">Home</a></li>
+								<li class="menu-item"><a href="./about.html" class="nav-link" data-effect="About">About</a></li>
+								<li class="menu-item"><a href="./browse.html" class="nav-link" data-effect="Browse">Browse</a></li>
+								<li class="menu-item"><a href="./contact.html" class="nav-link" data-effect="Contact">Contact</a></li>
+							</ul>
+							<div class="hamburger">
+				                <span class="bar"></span>
+				                <span class="bar"></span>
+				                <span class="bar"></span>
+				            </div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<!-- Search Bar-->
+		<div class="top-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="social-links">
+							<div class="action-menu">
+								<div class="search-bar">
+									<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+										<i class="icon icon-search"></i>
+									</a>
+									<form role="search" method="get" class="search-box">
+										<input class="search-field text search-input" placeholder="Search" type="search">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- User Activity Section -->
+					<div class="col-md-6">
+						<div class="right-element">
+							<a href="#" class="user-account for-buy"><i class="icon icon-user"></i><span> Sign In</span></a>
+							<a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span> To Rent: 0</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>
 
-        <!-- Navbar on left -->
-        <div class="navbar">
-            <div id="logo">
-                <a href="index.html"><img src="assets/images/logo.png" width="200"></a>
+<!-- Slider -->
+<section id="billboard">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="prev slick-arrow">
+          <i class="icon icon-arrow-left"></i>
+        </button>
+		<!-- Slide Interval -->
+        <div class="main-slider pattern-overlay" data-slick='{"autoplay": true, "autoplaySpeed": 3000}'>
+			<!-- First Slide -->
+          <div class="slider-item">
+            <div class="banner-content">
+              <h2 class="banner-title">Site Launch!</h2>
+              <p>Explore a world of books that brings readers from all backgrounds and interests together. From captivating tales of adventure to stories of friendship and courage, our extensive library empowers you to find the books you love and immerse yourself in new worlds. So come join our community of book lovers and discover your next favorite read!</p>
+              <div class="btn-wrap">
+                <a href="#" class="btn btn-outline-accent btn-accent-arrow">How Does It Work?<i class="icon icon-ns-arrow-right"></i></a>
+              </div>
             </div>
-            <div class="navitems">
-                <div class="navitem"><button class="button">All</button></div>
-                <div class="navitem"><button class="button">About Us</button></div>
-                <div class="navitem"><button class="button">Book Catalog</button></div>
-                <div class="navitem" style="border: 0;margin: 10%;"></div>
-                <div class="navitem"><button class="button">Rental History</button></div>
-                <div class="navitem"><button class="button">Log Out</button></div>
+            <img src="images/main-logo-favicon.png" alt="banner" class="banner-image">
+          </div>
+		  	<!-- Second Slide-->
+          <div class="slider-item">
+            <div class="banner-content">
+              <h2 class="banner-title">A wide variety of choices</h2>
+              <p>Choose from a variety of genres, including adventure, romance, fantasy, biographies, and more. From classics to bestsellers, we've got you covered. Find your next great read today!</p>
+              <div class="btn-wrap">
+                <a href="#" class="btn btn-outline-accent btn-accent-arrow">Browse Books<i class="icon icon-ns-arrow-right"></i></a>
+              </div>
             </div>
+            <img src="images/main-banner1.jpg" alt="banner" class="banner-image">
+          </div>
+		  	<!-- Third Slide -->
+		  <div class="slider-item">
+            <div class="banner-content">
+              <h2 class="banner-title">Romance</h2>
+              <p>Explore a world of books that brings readers from all backgrounds and interests together. From captivating tales of adventure to stories of friendship and courage, our extensive library empowers you to find the books you love and immerse yourself in new worlds. So come join our community of book lovers and discover your next favorite read!</p>
+              <div class="btn-wrap">
+                <a href="#" class="btn btn-outline-accent btn-accent-arrow">Rent This Book<i class="icon icon-ns-arrow-right"></i></a>
+              </div>
+            </div>
+            <img src="./images/book1.jpg" alt="banner" class="banner-image">
+          </div>
+		  	<!-- Fourth Slide -->
+		  <div class="slider-item">
+            <div class="banner-content">
+              <h2 class="banner-title">Fantasy</h2>
+              <p>Explore a world of books that brings readers from all backgrounds and interests together. From captivating tales of adventure to stories of friendship and courage, our extensive library empowers you to find the books you love and immerse yourself in new worlds. So come join our community of book lovers and discover your next favorite read!</p>
+              <div class="btn-wrap">
+                <a href="#" class="btn btn-outline-accent btn-accent-arrow">Rent This Book<i class="icon icon-ns-arrow-right"></i></a>
+              </div>
+            </div>
+            <img src="./images/book2.jpg" alt="banner" class="banner-image">
+          </div>
+		  	<!-- Fifth Slide -->
+		  <div class="slider-item">
+            <div class="banner-content">
+              <h2 class="banner-title">Thriller</h2>
+              <p>Explore a world of books that brings readers from all backgrounds and interests together. From captivating tales of adventure to stories of friendship and courage, our extensive library empowers you to find the books you love and immerse yourself in new worlds. So come join our community of book lovers and discover your next favorite read!</p>
+              <div class="btn-wrap">
+                <a href="#" class="btn btn-outline-accent btn-accent-arrow">Rent This Book<i class="icon icon-ns-arrow-right"></i></a>
+              </div>
+            </div>
+            <img src="./images/book3.jpg" alt="banner" class="banner-image">
+          </div>
         </div>
+        <button class="next slick-arrow">
+          <i class="icon icon-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Newest Addition Section -->
+<section id="newest-addition">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="row">
+					<div class="col-md-6">
+						<figure class="products-thumb">
+							<img src="images/it-ends-with-us.jpg" alt="book" class="single-image">
+						</figure>	
+					</div>
+					<div class="col-md-6">
+						<div class="product-entry">
+							<h2 class="section-title divider">Newest Addition</h2>
+							<div class="products-content">
+								<h3 class="item-title">It Ends With Us</h3>
+								<div class="author-name">By Colleen Hoover</div>
+								<p>Colleen Hoover's "It Ends With Us" is a heart-wrenching story of love, loss, and resilience that shines a light on the difficult realities of domestic abuse. This powerful and thought-provoking novel will leave you emotionally raw and rooting for the protagonist as she fights to create the life she deserves.</p>
+								<div class="btn-wrap">
+									<a href="#" class="btn-accent-arrow">Rent It Now!<i class="icon icon-ns-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
+		</div>
+	</div>
+</section>
 
-        <!-- Main -->
-        <div class="mainbody">
-            <div class="header">
-                <div class="header-item"><img src="assets/images/homeicon.png" width="20px" height="20px"><button class="button" style="padding-right: 0;">Home</button></div>
-                <div class="header-item"><img src="assets/images/info.png" width="20px" height="20px"><button class="button2" style="padding-right: 0;">About Us</button></div>
-                <div class="header-item"><img src="assets/images/book.png" width="20px" height="20px"><button class="button" style="padding-right: 0;">Book Catalog</button></div>
-                <div class="account">Welcome, Username</div>
-            </div>
-            <div class="dashboard">
-                <table>
-                    <tr>
-                        <th>All</th>
-                        <th>Genre 1</th>
-                        <th>Genre 2</th>
-                        <th>Genre 3</th>
-                        <th>Genre 4</th>
-                    </tr>
-                </table>
-                <div class="genre">
-                    <input id="searchbar" onkeyup="search_animal()" type="text" name="search" placeholder="Search animals..">
-                    <div class="cards">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="book-overlay"></div>
-                                <div class="book-cover"></div>
-                            </div>
-                            <div class="book-name">Name: No Data</div>
-                            <div class="book-genre">Genre: No Data</div>
-                            <div class="book-author">Author: No Data</div>
-                        </div>
-                        <div class="card">
+<!-- Footer -->
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="footer-item">
+					<div class="company-brand">
+						<img src="images/main-logo.png" alt="logo" class="footer-logo">
+						<p>Escape into a world of endless possibilities with our online book library. </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>About Us</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="/about.html#our-team">Team Members</a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#our-mission">Our Mission </a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#our-vision">Our Vision</a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#FAQs">FAQs</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>Browse</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Books</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Authors</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Genres</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Search</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>My Account</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Sign In</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">View Rents</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>Contact</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Information</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Send an Email</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">FAQs</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<div id="footer-bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="copyright">
+					<div class="row">
+						<div class="col-md-6">
+							<p><strong>Booked Books</strong> © 2023 All Rights Reserved.</p>
+						</div>
+						<div class="col-md-6">
+							<div class="social-links align-right">
+								<ul>
+									<li>
+										<a href="#"><i class="icon icon-facebook"></i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon icon-twitter"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-                            <div class="book-cover"></div>
-                            <div class="book-name">Name: No Data</div>
-                            <div class="book-genre">Genre: No Data</div>
-                            <div class="book-author">Author: No Data</div>
-                        </div>
-                        <div class="card">
-                            <div class="book-cover"></div>
-                            <div class="book-name">Name: No Data</div>
-                            <div class="book-genre">Genre: No Data</div>
-                            <div class="book-author">Author: No Data</div>
-                        </div>
-                        <div class="card">
-                            <div class="book-cover"></div>
-                            <div class="book-name">Name: No Data</div>
-                            <div class="book-genre">Genre: No Data</div>
-                            <div class="book-author">Author: No Data</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="script.js"></script>
-    </body>
-</html>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>
+<script src="js/modernizr.js"></script>
+
+</body>
+</html>	

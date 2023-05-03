@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta http-equiv="X-UA-Compatible" content="ie=edge">
+			<title>Booked Books | Browse Books</title>
+			<meta name="description" content="">
+			<meta name="keywords" content="">
+			<meta name="author" content="">
+			<!-- Website favicon -->
+			<link rel="shortcut icon" type="image/png" href="./images/main-logo-favicon.png">
+			<!-- Normalize.css for consistent styling across browsers -->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+			<!-- Icomoon.css for icon fonts -->
+			<link rel="stylesheet" href="icomoon/icomoon.css">
+			<!-- Vendor.css for third-party libraries or frameworks -->
+			<link rel="stylesheet" href="css/vendor.css">
+			<!-- Style.css for custom styles -->
+			<link rel="stylesheet" href="style.css">
+		</head>
+
+<body>
+<!-- Header -->
+<div id="header-wrap">
+	<header id="header">
+		<div class="container">
+			<div class="row">
+				<!-- Logo -->
+				<div class="col-md-2">
+					<div class="main-logo">
+						<a href="index.html"><img src="images/main-logo.png" alt="logo"></a>
+					</div>
+				</div>
+				<!-- Navbar -->
+				<div class="col-md-10">
+					<nav id="navbar">
+						<div class="main-menu stellarnav">
+							<ul class="menu-list">
+								<li class="menu-item"><a href="./index.html" class="nav-link" data-effect="Home">Home</a></li>
+								<li class="menu-item"><a href="./about.html" class="nav-link" data-effect="About">About</a></li>
+								<li class="menu-item active"><a href="./browse.html" class="nav-link" data-effect="Browse">Browse</a></li>
+								<li class="menu-item"><a href="./contact.html" class="nav-link" data-effect="Contact">Contact</a></li>
+							</ul>
+							<div class="hamburger">
+				                <span class="bar"></span>
+				                <span class="bar"></span>
+				                <span class="bar"></span>
+				            </div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<!-- Search Bar-->
+		<div class="top-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="social-links">
+							<div class="action-menu">
+								<div class="search-bar">
+									<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+										<i class="icon icon-search"></i>
+									</a>
+									<form role="search" method="get" class="search-box">
+										<input class="search-field text search-input" placeholder="Search" type="search">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- User Activity Section -->
+					<div class="col-md-6">
+						<div class="right-element">
+							<a href="#" class="user-account for-buy"><i class="icon icon-user"></i><span> Sign In</span></a>
+							<a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span> To Rent: 0</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>
+
+<div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">			
+				<div class="colored">
+					<h1 class="page-title">Browse Books</h1>
+					<div class="breadcum-items">
+						<span class="item"><a href="index.html">Home /</a></span>
+						<span class="item colored">Browse Books</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section id="popular-books" class="bookshelf">
+	
+	<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="tabs">
+			  <li data-tab-target="#all-genre" class="active tab">All Genre</li>
+			  <li data-tab-target="#business" class="tab">Business</li>
+			  <li data-tab-target="#technology" class="tab">Technology</li>
+			  <li data-tab-target="#romantic" class="tab">Romantic</li>
+			  <li data-tab-target="#adventure" class="tab">Adventure</li>
+			  <li data-tab-target="#fictional" class="tab">Fictional</li>
+			</ul>
+
+			<div class="tab-content">
+			  <div id="all-genre" data-tab-content class="active">
+			  	<div class="row">
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item1.jpg" alt="Books" class="product-item">
+							<a href="single-product.html"><button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button></a>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability available">Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item2.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item3.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item4.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				</div>
+				<div class="row">
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item5.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item6.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item7.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item8.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+		    	</div>
+
+			  </div>
+			  <div id="business" data-tab-content>
+			  	<div class="row">
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item2.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item4.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item6.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item8.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+		    	 </div>
+			  </div>
+
+			  <div id="technology" data-tab-content>
+			  	<div class="row">
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item1.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item3.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item5.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item7.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+		    	 </div>
+			  </div>
+
+			  <div id="romantic" data-tab-content>
+			  	<div class="row">
+		    	  <div class="col-md-3">
+			    	  <figure class="product-style">
+							<img src="images/tab-item1.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item3.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item5.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item7.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+		    	 </div>
+			  </div>
+
+			  <div id="adventure" data-tab-content>
+			  	<div class="row">
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item5.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item7.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+		    	 </div>
+			  </div>
+
+			  <div id="fictional" data-tab-content>
+			  	<div class="row">
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item5.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+
+				  	<div class="col-md-3">
+					  	<figure class="product-style">
+							<img src="images/tab-item7.jpg" alt="Books" class="product-item">
+							<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+							<figcaption>
+								<h3>Book</h3>
+								<p>Author</p>
+								<div class="availability not-available">Not Available</div>
+							</figcaption>
+						</figure>
+					</div>
+		    	 </div>
+			  </div>
+			</div>
+		</div>
+		</div>
+	</div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="footer-item">
+					<div class="company-brand">
+						<img src="images/main-logo.png" alt="logo" class="footer-logo">
+						<p>Escape into a world of endless possibilities with our online book library. </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>About Us</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="/about.html#our-team">Team Members</a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#our-mission">Our Mission </a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#our-vision">Our Vision</a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#FAQs">FAQs</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>Browse</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Books</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Authors</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Genres</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Search</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>My Account</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Sign In</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">View Rents</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>Contact</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Information</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Send an Email</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">FAQs</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<div id="footer-bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="copyright">
+					<div class="row">
+						<div class="col-md-6">
+							<p><strong>Booked Books</strong> © 2023 All Rights Reserved.</p>
+						</div>
+						<div class="col-md-6">
+							<div class="social-links align-right">
+								<ul>
+									<li>
+										<a href="#"><i class="icon icon-facebook"></i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon icon-twitter"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>
+<script src="js/modernizr.js"></script>
+
+</body>
+</html>	
