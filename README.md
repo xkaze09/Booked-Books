@@ -3,7 +3,7 @@ This is a web application designed for book club members and administrators to e
 
 # Features
 
-User Authentication: The website requires users to login to access the database of books. Users can be classified as either club administrators or students. The login process is secure to protect the privacy and security of the users.
+[In-Progress] User Authentication: The website requires users to login to access the database of books. Users can be classified as either club administrators or students. The login process is secure to protect the privacy and security of the users.
 
 User Roles: There are different user roles with different permissions. Club administrators have full access to add, remove, and update books from the database. Students have limited access to the database to check the availability of books.
 
