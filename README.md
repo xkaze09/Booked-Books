@@ -12,10 +12,10 @@ Book Management: Club administrators can add, remove, and update books in the da
 User Feedback: The website allows students to rate and review the books they have rented. This can help other students decide whether to rent a particular book or not.
 
 # Technologies Used
-HTML
-CSS
-JavaScript
-Bootstrap
+- HTML
+- CSS
+- JavaScript
+- Bootstrap and Plugins
 
 # Installation and Usage
 
@@ -27,9 +27,9 @@ To install and use this web application, follow these steps:
 The backend service will be developed accordingly.
 
 # Contributors
-Carl Jorenz Gimeno 
-Kzlyr Shaira Manejo
-Christian Justin Salinas
+- Carl Jorenz Gimeno 
+- Kzlyr Shaira Manejo
+- Christian Justin Salinas
 
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
