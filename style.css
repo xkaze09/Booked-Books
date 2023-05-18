@@ -21,8 +21,8 @@
 }
 /* Colors */
 :root {
-    --accent-color       : #c96dff;
-    --secondary-color    : #ffb6f5;
+    --accent-color       : #ff98ee;
+    --secondary-color    : #ffeffd;
     --dark-color         : #2f2f2f;
     --light-color        : #f6ecff;
     --body-text-color    : #757575;
@@ -51,8 +51,8 @@ body {
   font-family: var(--body-font);
   font-size: 16px;
   line-height: 2;
-  color: var(--body-text-color);
-  background-color: var(--light-color);
+  color: var(--dark-text-color);
+  background-color: var(--secondary-color);
 }
 body.no-scroll {
     overflow: hidden;
@@ -81,7 +81,7 @@ ul li, ol li {
   outline: 0;
 }
 ul li.active a{
-  color: #c96dff;
+  color: var(--accent-color);
 }
 ul li:last-child,
 ol li:last-child {
@@ -909,11 +909,6 @@ fieldset[disabled] a.btn {
   border-radius: 0;
 }
 
-/*--------------------------------------------------------------
-This is main CSS file that contains custom style rules used in this template
---------------------------------------------------------------*/
-
-
 /* - Section Padding
 --------------------------------------------------------------*/
 .padding-xsmall {
@@ -1097,7 +1092,7 @@ button {
 }
 .section-title.divider:after {
     content: "";
-    border-bottom: 3px solid #74642F;
+    border-bottom: 3px solid #f1b7ff;
     position: absolute;
     right: 0;
     bottom: -16px;
@@ -1230,7 +1225,7 @@ img.post-image {
 .action-menu .open-icon-wrap {
   width: 40px;
   height: 40px;
-  background: #f5dbff;
+  background: #ffd4f9;
   border-radius: 40px;
   margin-right: 25px;
   display: flex;
@@ -1258,7 +1253,7 @@ img.post-image {
   margin-bottom: 0;
   font-weight: 300;
   padding-left: 20px;
-  background: #f5dbff; 
+  background: #ffd4f9; 
 }
 
 .action-menu .side-nav-bar .menu-btn a,
@@ -1416,7 +1411,7 @@ img.post-image {
 /*----- Newest Addition Section
 --------------------------------------------------------------*/
 #newest-addition {
-    background: #eed2ff;
+    background: #ffe4fa;
     padding: 140px 0;
     margin-bottom: 180px;
 }
@@ -1480,7 +1475,7 @@ img.post-image {
 .tabs .tab.active,
 .tabs .tab:hover {
     color: #111;
-    border-bottom: 2px solid #9A884C;
+    border-bottom: 2px solid var(--accent-color);
 }
 img.books-image {  
     /*height: 290px;*/
@@ -1541,8 +1536,8 @@ span.prev-availability {
 }
 
 .our-team {
-  background: #eed2ff;
-}
+  background: #ffe4fa;
+  }
 
 /*----- Subscribe Section
 --------------------------------------------------------------*/
@@ -1675,44 +1670,6 @@ span.prev-availability {
   }
 }
 
-/*----- Contact Section
---------------------------------------------------------------*/
-#download-app {
-    background: #EDEBE4;
-    padding: 140px 0;
-    margin-bottom: 180px;
-    overflow: hidden;
-    z-index: 0;
-}
-/*#download-app .container {
-    max-width: 1040px;
-}*/
-/*#download-app figure {
-    width: 40%;
-    z-index: 0;
-}*/
-#download-app .app-info {
-    padding-top: 100px;
-    margin-left: 50px;
-}
-#download-app .app-info p {
-    margin-bottom: 50px;
-}
-
-@media screen and (max-width: 820px) {
-  #download-app .grid {
-      flex-wrap: wrap;
-  }
-  #download-app figure {
-      margin: 0 auto;
-  }
-  #download-app .app-info {
-      width: 90%;
-      margin: 0 auto;
-      padding-top: 80px;
-  }
-}
-
 /*----- Footer Section
 --------------------------------------------------------------*/
 footer#footer {
@@ -1784,7 +1741,7 @@ footer#footer {
     width: 33.33%;
 }
 .product-style img.product-item {
-    background: #f5dbff;
+    background: #ffe4fa;
     border: 1px solid #EAE8DF;
     padding: 15%;
     cursor: pointer;
@@ -1816,11 +1773,11 @@ footer#footer {
 .product-style figcaption>h3 {
     font-size: 1.4em;
     font-weight: 500;
-    color: #74642F;
+    color: var(--dark-color);
     margin: 0;
 }
 .product-style .item-availability {
-    color: #74642F;
+    color: var(--dark-color);
     font-size: 1.3em;
 }
 
@@ -1896,23 +1853,26 @@ footer#footer {
 .search_input {
   color: var(--dark-text-color);
   border: 0 !important;
+  margin-right: 0;
   outline: 0;
   background: none;
   padding: 0 !important;
   width: 0;
   caret-color: var(--dark-text-color);
   line-height: 40px;
-  transition: width 0.4s linear, padding 0.8s ease-out;
+  transition: width 0.4s linear, padding 0.1s linear, margin 0.1s linear;
+  transition-delay: padding 0.4s;
 }
 .searchbar:hover > .search_input, .search-active {
   padding: 0 10px !important;
+  margin-right: 10px;
   width: 320px;
   display: block !important;
   caret-color: var(--accent-color);
-  transition: width 0.4s linear;
+  transition: width 0.4s linear, padding 0.1s linear, margin 0.1s linear;
 }
 
-.searchbar:hover > .search_icon {
+.searchbar:hover > .search_icon, .search-active {
   background: var(--accent-color);
   color: var(--dark-color);
 }

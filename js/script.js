@@ -4,12 +4,14 @@ const isHover = e => e.parentElement.querySelector(':hover') === e;
 // Add search-active class on searchbar
 function searchActive(){
     $('#searchbar').addClass('search-active');
+    $('.search_icon').addClass('search-active');
 };
 
 // Return search bar to normal when clicking outside
 $(window).click(function(e) {
     if (!($(e.target).is('#searchbar'))) {
         $('#searchbar').removeClass('search-active');
+        $('.search_icon').removeClass('search-active');
     }
 });
 
