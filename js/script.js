@@ -18,11 +18,19 @@ $(window).click(function(e) {
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
+  var buttons = $('div').filter('#subnav');
   if ($(document).scrollTop() > 120) {
-    $('#header-wrap').addClass('h-20');
-    $('#navbar').addClass('h-20');
+    buttons.removeClass('p-1');
+    buttons.addClass('px-1');
+    $('#header').addClass('scrolled');
+    $('.top-content').addClass('scrolled');
   } else {
-    $('#header-wrap').removeClass('h-20');
-    $('#navbar').removeClass('h-20');
+    buttons.removeClass('px-1');
+    buttons.addClass('p-1');
+    $('#header').removeClass('scrolled');
+    $('.top-content').removeClass('scrolled');
   }
 } 
+
+
+AOS.init();

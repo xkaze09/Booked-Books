@@ -1067,12 +1067,12 @@ button {
 -----------------------------------------------*/
 .page-title {
   font-size: 4.5em;
-  margin-top: 2em;
+  margin-top: 1em;
 }
 @media screen and (max-width: 768px) {
   .page-title {
     font-size: 2.5em;
-    margin-top: 1em;
+    margin-top: 0.5em;
   }  
 }
 /*--- Section Title
@@ -1286,11 +1286,22 @@ img.post-image {
 ------------------------------------------------------------- */
 #header {
   padding: 40px 0;
+  transition: padding 0.5s ease-in;
 }
 #header .menu-list a {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.10em;
+}
+
+.scrolled {
+  padding: 2px !important;
+  margin: 2px !important;
+  transition: padding 0.5s ease-in, margin 0.5s ease-in;
+}
+
+.top-content {
+  transition: padding 0.5s ease-in;
 }
 
 /*----- Billboard
@@ -1716,6 +1727,10 @@ footer#footer {
 }
 
 /* Browse Books Section */
+a[href="single-product.html"]:hover + figcaption{
+  filter: brightness(40%);
+} 
+
 .products-grid {
     display: flex;
     justify-content: space-between;
@@ -1755,14 +1770,14 @@ footer#footer {
     text-align: center;
     line-height: 3;
     position: absolute;
-    bottom: 300px;
-    left: 40px;
+    bottom: 45%;
+    left: 33px;
     z-index: 9;
     opacity: 0;
     transition: 0.5s ease-out;
 }
 .product-style:hover button.add-to-rent {
-    bottom: 380px;
+    bottom: 60%;
     opacity: 1;
 }
 .product-style figcaption {  
