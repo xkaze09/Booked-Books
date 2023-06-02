@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($table)) {
         $sql = "INSERT INTO $table (email, password) VALUES ('$email', '$password')";
 
-        // Execute the query
         if ($conn->query($sql) === TRUE) {
-            echo "Data saved successfully.";
+            // redirect to user/admin page
+            header("Location: ../index.html");
         } else {
             echo "Error: " . $conn->error;
         }
