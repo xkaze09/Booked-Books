@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Booked Books | Admin Dashboard</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		<!-- Website favicon -->
+		<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+		<!-- Bootstrap CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+		<!-- AOS CDN -->
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<!-- Icons -->
+		<script src="https://kit.fontawesome.com/bb214b8122.js" crossorigin="anonymous"></script>
+		<link rel="shortcut icon" type="image/png" href="./images/main-logo-favicon.png">
+		<!-- Normalize.css for consistent styling across browsers -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+		<!-- Icomoon.css for icon fonts -->
+		<link rel="stylesheet" href="icomoon/icomoon.css">
+		<!-- Vendor.css for third-party libraries or frameworks -->
+		<link rel="stylesheet" href="css/vendor.css">
+		<!-- Style.css for custom styles -->
+		<link rel="stylesheet" href="style.css">
+	</head>
+<!-- Header -->
+<div id="header-wrap" class="sticky-top bg-light">
+	<header id="header" class="pb-0">
+		<div class="container">
+			<div class="row">
+				<!-- Logo -->
+				<div class="col-md-2 h-60">
+					<div class="main-logo">
+						<a href="index.html"><img src="images/main-logo.png" alt="logo" class="img-fluid"></a>
+					</div>
+				</div>
+				<!-- Navbar -->
+				<div class="col-md-10 h-60">
+					<nav id="navbar">
+						<div class="main-menu stellarnav">
+							<ul class="menu-list">
+								<li class="menu-item"><a href="./index.html" class="nav-link" data-effect="Home">Home</a></li>
+								<li class="menu-item"><a href="./about.html" class="nav-link" data-effect="About">About</a></li>
+								<li class="menu-item"><a href="./browse.html" class="nav-link" data-effect="Browse">Browse</a></li>
+								<li class="menu-item"><a href="./contact.html" class="nav-link" data-effect="Contact">Contact</a></li>
+							</ul>
+							<div class="hamburger">
+				                <span class="bar"></span>
+				                <span class="bar"></span>
+				                <span class="bar"></span>
+				            </div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<!-- Search Bar-->
+		<div class="top-content pb-0 h-40">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="container m-0 p-0">
+							<div class="d-flex m-0 p-0">
+								<div class="searchbar p-0" onmousedown="searchActive()">
+									<a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+									<input class="search_input m-0" type="text" name="" id="searchbar" placeholder="Search...">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- User Activity Section -->
+					<div class="col-md-6">
+						<div class="right-element d-flex btn-group float-end m-0 align-top">
+							<div class="dropdown m-0 p-1" id="subnav">
+								<a href="#" class="user-account for-buy bg-transparent btn dropdown-toggle m-0" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="60,20"><i class="icon icon-user"></i><span> Admin</span></a>
+								<form class="dropdown-menu px-3 dropdown-menu-end" style="width: 200% !important;">
+									<h3 class="text-center p-0">Account</h3>
+									<div class="mb-1">
+										<label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
+										<input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+									</div>
+									<div class="mb-1">
+										<label for="exampleDropdownFormPassword2" class="form-label">Password</label>
+										<input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+									</div>
+									<div class="mb-1">
+										<div class="form-check align-middle">
+											<input type="checkbox" class="form-check-input" id="dropdownCheck2">
+											<label class="form-check-label align-top p-0" for="dropdownCheck2">
+											Remember Me
+											</label>
+										</div>
+									</div>
+									<div class="align-center">
+										<button type="submit" class="btn btn-default bg-light py-1 mx-auto">Account</button>
+									</div>
+								</form>
+							</div>
+							<div class="dropdown m-0 p-1" id="subnav">
+								<a href="#" class="cart for-buy btn bg-transparent dropdown-toggle m-0" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="10,20"><i class="icon icon-clipboard"></i><span> To Rent: 0</span></a>
+								<form class="dropdown-menu px-3 dropdown-menu-end" style="width: 200%;">
+									<h3 class="text-center">Books to be rented:</h3>
+									<div class="align-center">
+										<h1>None</h1>
+									</div>
+									<div class="align-center">
+										<button type="submit" class="btn py-1 text-center">Check Out</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>
+	
+<!-- Booked Books Information -->
+<div class="site-banner">
+	<div class="banner-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">			
+					<div class="colored">
+						<h1 class="page-title">Admin Dashboard</h1>
+						<div class="breadcum-items">
+							<span class="item"><a href="index.html">Home /</a></span>
+							<span class="item colored">Admin Dashboard</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Admin Action Buttons -->
+<div id="admin-actions">
+    <button onclick="toggleViewBooks()">View Books</button>
+    <button onclick="toggleAddBook()">Add Book</button>
+</div>
+
+<!-- Viewing Books -->
+<div id="view-books-section" style="display: none;">
+    <h2>View Books</h2>
+    <div id="message">What do you want to do?</div> <!-- Div for displaying the message -->
+    <button onclick="onGenreButtonClick('')">All</button>
+    <button onclick="onGenreButtonClick('Mystery')">Mystery</button>
+    <button onclick="onGenreButtonClick('Fantasy')">Fantasy</button>
+    <button onclick="onGenreButtonClick('Romance')">Romance</button>
+    <table id="book-table">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>Genre</th>
+            <th>Availability</th>
+            <th>Quantity</th>
+            <th>Cover Image</th>
+        </tr>
+    </table>
+</div>
+
+<!-- Adding Books -->
+<div id="add-book-section" style="display: none;">
+    <h2>Add Book</h2>
+    <form id="add-book-form" action="test.php" method="POST" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
+
+        <label for="author">Author:</label>
+        <input type="text" name="author" id="author" required>
+
+        <label for="cover_image">Cover Image:</label>
+        <input type="file" name="cover_image" id="cover_image" accept=".jpg,.png">
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" required></textarea>
+
+        <label for="genre">Genre:</label>
+        <input type="text" name="genre" id="genre" required>
+
+        <label for="availability">Availability:</label>
+        <select name="availability" id="availability" required>
+            <option value="1">Available</option>
+            <option value="0">Not Available</option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" min="1" required>
+
+        <input type="submit" value="Add Book">
+    </form>
+    <div id="message"></div> <!-- Div for displaying the message -->
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="footer-item">
+					<div class="company-brand">
+						<img src="images/main-logo.png" alt="logo" class="footer-logo">
+						<p>Escape into a world of endless possibilities with our online book library. </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>About Us</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="/about.html#our-team">Team Members</a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#our-mission">Our Mission </a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#our-vision">Our Vision</a>
+						</li>
+						<li class="menu-item">
+							<a href="/about.html#FAQs">FAQs</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>Browse</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Books</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Authors</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Genres</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Search</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>My Account</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Sign In</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">View Rents</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="footer-menu">
+					<h5>Contact</h5>
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="#">Information</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">Send an Email</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">FAQs</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<div id="footer-bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="copyright">
+					<div class="row">
+						<div class="col-md-6">
+							<p><strong>Booked Books</strong> © 2023 All Rights Reserved.</p>
+						</div>
+						<div class="col-md-6">
+							<div class="social-links align-right">
+								<ul>
+									<li>
+										<a href="#"><i class="icon icon-facebook"></i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon icon-twitter"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="js/script.js"></script>
+<script>
+	document.getElementById('add-book-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve form data
+    var form = event.target;
+    var formData = new FormData(form);
+
+    // Perform form submission using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './php/add_book.php', true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Request was successful
+                var response = xhr.responseText;
+                console.log(response); // You can handle the response as needed
+                form.reset(); // Reset the form fields after successful submission
+            } else {
+                // Request encountered an error
+                console.log('Error: ' + xhr.status);
+            }
+        }
+    };
+
+    xhr.send(formData);
+});
+// Function to fetch and display book data
+function fetchBooks() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', './php/get_books.php', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                displayBooks(response);
+            } else {
+                console.log('Error: ' + xhr.status);
+            }
+        }
+    };
+    xhr.send();
+}
+
+// Display the books on the page
+function displayBooks(books) {
+    var table = document.getElementById('book-table');
+
+    // Clear existing table rows
+    while (table.rows.length > 1) {
+        table.deleteRow(1);
+    }
+
+    // Iterate over the books and create table rows
+    for (var i = 0; i < books.length; i++) {
+        var book = books[i];
+        var row = table.insertRow(i + 1);
+
+        // Insert cells with book information
+        var titleCell = row.insertCell(0);
+        titleCell.textContent = book.title;
+
+        var authorCell = row.insertCell(1);
+        authorCell.textContent = book.author;
+
+        var descriptionCell = row.insertCell(2);
+        descriptionCell.textContent = book.description;
+
+        var genreCell = row.insertCell(3);
+        genreCell.textContent = book.genre;
+
+        var availabilityCell = row.insertCell(4);
+        availabilityCell.textContent = book.availability;
+
+        var quantityCell = row.insertCell(5);
+        quantityCell.textContent = book.quantity;
+
+        var coverImageCell = row.insertCell(6);
+        var coverImage = document.createElement('img');
+        coverImage.src = book.cover_image;
+        coverImage.width = 100; // Adjust the width as needed
+        coverImageCell.appendChild(coverImage);
+    }
+}
+
+// Filter books by genre
+function filterBooksByGenre(genre) {
+    // Fetch books from the server and filter by genre
+    fetch('php/get_books.php')
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error: ' + response.status);
+            }
+        })
+        .then(function(data) {
+            // Check if a genre is selected
+            if (genre) {
+                // Filter books by genre
+                var filteredBooks = data.filter(function(book) {
+                    return book.genre === genre;
+                });
+                
+                // Display the filtered books
+                displayBooks(filteredBooks);
+            } else {
+                // No genre selected, display all books
+                displayBooks(data);
+            }
+        })
+        .catch(function(error) {
+            console.log('Error: ' + error.message);
+        });
+}
+
+// Button click event handler
+function onGenreButtonClick(genre) {
+    // Call the filterBooksByGenre function with the selected genre
+    filterBooksByGenre(genre);
+}
+// Function to toggle visibility of the View Books section
+function toggleViewBooks() {
+    var viewBooksSection = document.getElementById('view-books-section');
+    var addBookSection = document.getElementById('add-book-section');
+    var adminActions = document.getElementById('admin-actions');
+
+    viewBooksSection.style.display = 'block';
+    addBookSection.style.display = 'none';
+    adminActions.style.display = 'none';
+}
+
+// Function to toggle visibility of the Add Book section
+function toggleAddBook() {
+    var viewBooksSection = document.getElementById('view-books-section');
+    var addBookSection = document.getElementById('add-book-section');
+    var adminActions = document.getElementById('admin-actions');
+
+    viewBooksSection.style.display = 'none';
+    addBookSection.style.display = 'block';
+    adminActions.style.display = 'none';
+}
+
+// Fetch the books from the server
+fetchBooks();
+
+</script>
+</body>
+</html>	
