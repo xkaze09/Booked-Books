@@ -9,7 +9,7 @@ This is a web application designed for book club members and administrators to e
 
 [In-Progress] Book Management: Club administrators can add, remove, and update books in the database. They can add details such as book title, author, cover image, description, genre, and availability status.
 
-[In-Progress] User Feedback: The website allows students to rate and review the books they have rented. This can help other students decide whether to rent a particular book or not.
+[In-Progress] User Feedback (Optional): The website allows students to rate and review the books they have rented. This can help other students decide whether to rent a particular book or not.
 
 # Technologies Used
 - HTML
