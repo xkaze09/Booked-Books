@@ -587,5 +587,59 @@
 	</div>
 </div>
 <script src="js/script.js"></script>
+<script>
+	// Retrieve book data from the server or database
+	var books = [
+		{
+			title: "Book 1",
+			author: "Author 1",
+			image: "images/tab-item1.jpg",
+			availability: true
+		},
+		{
+			title: "Book 2",
+			author: "Author 2",
+			image: "images/tab-item2.jpg",
+			availability: false
+		},
+		{
+			title: "Book 3",
+			author: "Author 3",
+			image: "images/tab-item3.jpg",
+			availability: false
+		}
+	];
+
+	// Function to generate HTML for each book
+	function generateBookHTML(book) {
+		var availabilityClass = book.availability ? "availability available" : "availability not-available";
+
+		var bookHTML = `
+			<div class="col-md-3">
+				<figure class="product-style">
+					<img src="${book.image}" alt="Books" class="product-item">
+					<button type="button" class="add-to-rent" data-product-tile="add-to-rent">Add To Rent</button>
+					<figcaption>
+						<h3>${book.title}</h3>
+						<p>${book.author}</p>
+						<div class="${availabilityClass}">${book.availability ? 'Available' : 'Not Available'}</div>
+					</figcaption>
+				</figure>
+			</div>
+		`;
+
+		return bookHTML;
+	}
+
+	// Generate book elements and append them to the bookshelf content
+	var bookshelfContent = document.getElementById("bookshelf-content");
+
+	books.forEach(function (book) {
+		var bookElement = document.createElement("div");
+		bookElement.classList.add("col-md-3");
+		bookElement.innerHTML = generateBookHTML(book);
+		bookshelfContent.appendChild(bookElement);
+	});
+</script>
 </body>
 </html>	
