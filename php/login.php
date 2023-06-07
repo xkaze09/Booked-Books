@@ -1,6 +1,8 @@
 <?php
 include "conn.php";
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -12,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($userResult->num_rows > 0) {
             // if user exists, redirect to the user page
+            $_SESSION["isAdmin"] = FALSE;
             header("Location: ../index.html");
             exit();
         }
@@ -22,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($adminResult->num_rows > 0) {
             // if admin exists, redirect to the admin page
-            header("Location: ../index.html");
+            $_SESSION["isAdmin"] = TRUE;
+            header("Location: ../admin-dashboard.php");
             exit();
         }
     }
@@ -31,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<script>alert('Log in error. Please check your email or password.');
             document.location.href = '../index.html'; 
         </script>";
-
+    session_destroy();
     $conn->close();
 }
 ?>
