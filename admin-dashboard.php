@@ -42,7 +42,7 @@
 		<div class="container-fluid overflow-scroll hide-scrollbar d-flex">
 			<div class="row w-100">
 				<div class="col-md-3 flex-shrink-0 p-3 overflow-scroll">
-					<a href="dashboard.php" class="justify-content-center align-self-center">
+					<a href="admin-dashboard.php" class="justify-content-center align-self-center">
 						<img src="images/main-logo.png" alt="logo" class="img-fluid">
 					</a>
 					<p class="m-0 text-center"><b class="m-0 p-0">Administrator</b></p>
@@ -108,7 +108,7 @@
 						<!-- Adding Books -->
 						<div id="add-book" class="admin-panels w-100">
 							<h2>Add Book</h2>
-							<form id="add-book-form" action="test.php" method="POST" enctype="multipart/form-data">
+							<form id="add-book-form" action="" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6">
 										<label for="cover_image">Cover Image:</label>
@@ -137,14 +137,32 @@
 										<label for="genre">Genre:</label>
 										<input type="text" name="genre" id="genre" required>
 									</div>
-									<input type="submit" value="Add Book" id="submitbook">
+									<input type="submit" class="submit" value="Add Book" id="submitbook">
 								</div>
 							</form>
 							<div id="message"></div> <!-- Div for displaying the message -->
 						</div>
 
 						<!-- Viewing Books -->
-
+						<div id="library" class="admin-panels w-100">
+							<h2>View Books</h2>
+							<div id="message">What do you want to do?</div> <!-- Div for displaying the message -->
+							<button onclick="filterBooksByGenre('')">All</button>
+							<button onclick="filterBooksByGenre('Mystery')">Mystery</button>
+							<button onclick="filterBooksByGenre('Fantasy')">Fantasy</button>
+							<button onclick="filterBooksByGenre('Romance')">Romance</button>
+							<table id="book-table">
+								<tr>
+									<th>Title</th>
+									<th>Author</th>
+									<th>Description</th>
+									<th>Genre</th>
+									<th>Availability</th>
+									<th>Quantity</th>
+									<th>Cover Image</th>
+								</tr>
+							</table>
+						</div>
 					</main>
 				</div>
 			</div>
@@ -157,33 +175,50 @@
 <script src="./js/script.js"></script>
 <script>
 
-	function addbook(){
-		var form = $('#add-book-form');
-		var formData = new FormData(form);
-		console.log(formData);
+	//Submit form to add books
+	$('#add-book-form').submit(function (e) {
+		e.preventDefault();
+
+		let form = document.querySelector('form');
+			formData = new FormData(form);
+
 		$.ajax({
 			processData: false,
 			contentType: false,
 
 			url: './php/add_book.php',
-			dataType: 'json',
 			type: 'POST',
 			data: formData,
 			success: function(response,responseStatus){
 				console.log(responseStatus); // You can handle the response as needed
-                // $('#add-book-form').reset(); // Reset the form fields after successful submission
+            	form.reset(); // Reset the form fields after successful submission
+				previewFile();
 			},
 			error: function(response,responseStatus){
 				console.log("Error: "+responseStatus);
 			}
 		});
-	};
+	});
 
+	function fetchBooks() {
+		$.ajax({
+			url: "./php/get_books.php",
+			method: "GET",
+			success: function(response, responseStatus){
+				console.log(response);
+				displayBooks(response);
+			},
+			error: function(response,responseStatus){
+				console.log("Error: "+responseStatus);
+			}
+		});
+	}
+
+
+	//Preview cover images
 	function previewFile() {
 		var preview = $('#cover');
 		var file 	= document.querySelector('#cover_image').files[0];
-		// var file    = $("#cover_image").prop('files');
-		console.log(file);
 		var reader  = new FileReader();
 
 		reader.onloadend = function () {
@@ -197,6 +232,79 @@
 		}
 	}
 
+	// Display the books on the page
+	function displayBooks(books) {
+		var table = document.getElementById('book-table');
+
+		// Clear existing table rows
+		while (table.rows.length > 1) {
+			table.deleteRow(1);
+		}
+
+		// Iterate over the books and create table rows
+		for (var i = 0; i < books.length; i++) {
+			var book = books[i];
+			var row = table.insertRow(i + 1);
+
+			// Insert cells with book information
+			var titleCell = row.insertCell(0);
+			titleCell.textContent = book.title;
+
+			var authorCell = row.insertCell(1);
+			authorCell.textContent = book.author;
+
+			var descriptionCell = row.insertCell(2);
+			descriptionCell.textContent = book.description;
+
+			var genreCell = row.insertCell(3);
+			genreCell.textContent = book.genre;
+
+			var availabilityCell = row.insertCell(4);
+			availabilityCell.textContent = book.availability;
+
+			var quantityCell = row.insertCell(5);
+			quantityCell.textContent = book.quantity;
+
+			var coverImageCell = row.insertCell(6);
+			var coverImage = document.createElement('img');
+			coverImage.src = book.cover_image;
+			coverImage.width = 100; // Adjust the width as needed
+			coverImageCell.appendChild(coverImage);
+		}
+	}
+
+	// Filter books by genre
+	function filterBooksByGenre(genre) {
+		// Fetch books from the server and filter by genre
+		fetch('php/get_books.php')
+			.then(function(response) {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error('Error: ' + response.status);
+				}
+			})
+			.then(function(data) {
+				// Check if a genre is selected
+				if (genre) {
+					// Filter books by genre
+					var filteredBooks = data.filter(function(book) {
+						return book.genre === genre;
+					});
+					
+					// Display the filtered books
+					displayBooks(filteredBooks);
+				} else {
+					// No genre selected, display all books
+					displayBooks(data);
+				}
+			})
+			.catch(function(error) {
+				console.log('Error: ' + error.message);
+			});
+	}
+
+	//Toggle main body
 	$('.book-toggle').click(function() {
 		$('.admin-panels').hide();
 		var target = '#' + $(this).data('target');

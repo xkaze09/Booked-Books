@@ -1,4 +1,7 @@
 <?php
+
+include_once 'conn.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $title = $_POST["title"];
@@ -7,17 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $genre = $_POST["genre"];
     $availability = $_POST["availability"];
     $quantity = $_POST["quantity"];
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "bbdatabase";
-
-    // Create a connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Handle the cover image file upload
     $targetDirectory = "./uploads/"; // Specify the directory where you want to save the uploaded images
