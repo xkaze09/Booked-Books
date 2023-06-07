@@ -150,8 +150,8 @@
                     </div>
                   </div>
                   <div class="align-center d-flex flex-column">
-                    <button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="user" onclick="changeAction('php/login.php')">Log in as user</button>
-                    <button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="admin" onclick="changeAction('php/login.php')">Log in as admin</button>
+                    <button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="user" onclick="changeAction('login.php')">Log in as user</button>
+                    <button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="admin" onclick="changeAction('login.php')">Log in as admin</button>
                     <a href="#" style="font-size: 14px;" onclick ="window.location.href='signup.php'">Don't have an account? Sign up now.</a>
                   </div>
                 </form>
