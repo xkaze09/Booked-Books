@@ -33,7 +33,7 @@
 
 <?php
 
-  include '../php/conn.php';
+  include 'conn.php';
   // Define variables to store error messages
   $usernameError = $passwordError = "";
 
@@ -98,9 +98,9 @@
             <div class="main-menu stellarnav">
               <ul class="menu-list">
                 <li class="menu-item active"><a href="../index.html" class="nav-link" data-effect="Home">Home</a></li>
-                <li class="menu-item"><a href="../about.html" class="nav-link" data-effect="About">About</a></li>
-                <li class="menu-item"><a href="../browse.html" class="nav-link" data-effect="Browse">Browse</a></li>
-                <li class="menu-item"><a href="../contact.html" class="nav-link" data-effect="Contact">Contact</a></li>
+                <li class="menu-item"><a href="../about.php" class="nav-link" data-effect="About">About</a></li>
+                <li class="menu-item"><a href="../browse.php" class="nav-link" data-effect="Browse">Browse</a></li>
+                <li class="menu-item"><a href="../contact.php" class="nav-link" data-effect="Contact">Contact</a></li>
               </ul>
               <div class="hamburger">
                         <span class="bar"></span>
