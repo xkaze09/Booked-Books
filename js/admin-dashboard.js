@@ -45,58 +45,60 @@ function fetchBooks() {
 // Display the books on the page
 function displayBooks(books) {
     var table = document.getElementById('book-table');
-
+  
     // Clear existing table rows
     while (table.rows.length > 1) {
-        table.deleteRow(1);
+      table.deleteRow(1);
     }
-
+  
     // Iterate over the books and create table rows
     for (var i = 0; i < books.length; i++) {
+      (function () {
         var book = books[i];
         var row = table.insertRow(i + 1);
-
+  
         // Insert cells with book information
         var titleCell = row.insertCell(0);
         titleCell.textContent = book.title;
-
+  
         var authorCell = row.insertCell(1);
         authorCell.textContent = book.author;
-
+  
         var descriptionCell = row.insertCell(2);
         descriptionCell.textContent = book.description;
-
+  
         var genreCell = row.insertCell(3);
         genreCell.textContent = book.genre;
-
+  
         var availabilityCell = row.insertCell(4);
         availabilityCell.textContent = book.availability;
-
+  
         var quantityCell = row.insertCell(5);
         quantityCell.textContent = book.quantity;
-
+  
         var coverImageCell = row.insertCell(6);
         var coverImage = document.createElement('img');
         coverImage.src = book.cover_image;
         coverImage.width = 100; // Adjust the width as needed
         coverImageCell.appendChild(coverImage);
-
+  
         var actionCell = row.insertCell(7);
         var editButton = document.createElement('button');
         editButton.textContent = 'Edit';
-        editButton.onclick = function() {
-            openEditModal(book.id);
+        editButton.onclick = function () {
+          openEditModal(book.id);
         };
         actionCell.appendChild(editButton);
-
+  
         var deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-        deleteButton.onclick = function() {
-            deleteBook(book.id);
+        deleteButton.onclick = function () {
+          deleteBook(book.id);
         };
         actionCell.appendChild(deleteButton);
+      })();
     }
-}
+  }  
 
 // Filter books by genre
 function filterBooksByGenre(genre) {

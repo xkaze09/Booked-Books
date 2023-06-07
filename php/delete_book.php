@@ -1,30 +1,33 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $id = $_POST["id"];
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "bbdatabase";
+// Get the book ID from the request body
+$data = json_decode(file_get_contents('php://input'), true);
+$bookId = $data['bookId'];
 
-    // Create a connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+// Database connection
+require_once 'conn.php';
 
-    // Prepare the DELETE statement
-    $sql = "DELETE FROM books WHERE id='$id'";
-
-    // Execute the statement
-    if ($conn->query($sql) === TRUE) {
-        echo "Book deleted successfully.";
-    } else {
-        echo "Error deleting book: " . $conn->error;
-    }
-
-    // Close the connection
-    $conn->close();
+// Delete the book from the database
+$sql = "DELETE FROM books WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('i', $bookId);
+if ($stmt->execute()) {
+    $response = [
+        'success' => true,
+        'message' => 'Book deleted successfully.'
+    ];
+} else {
+    $response = [
+        'success' => false,
+        'message' => 'Failed to delete book.'
+    ];
 }
+
+// Return the JSON response
+header('Content-Type: application/json');
+echo json_encode($response);
+
+$stmt->close();
+$conn->close();
+
 ?>
