@@ -4,12 +4,12 @@ include "conn.php";
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     if (isset($_POST['user'])) {
         // check if the user exists in the users table
-        $userSql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+        $userSql = "SELECT * FROM users WHERE username='$username' AND password='$password' AND isAdmin=FALSE";
         $userResult = $conn->query($userSql);
 
         if ($userResult->num_rows > 0) {
@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     } elseif (isset($_POST['admin'])) {
-        // check if the user exists in the admins table
-        $adminSql = "SELECT * FROM admins WHERE email='$email' AND password='$password'";
+        // check if the user exists in the users table and is an admin
+        $adminSql = "SELECT * FROM users WHERE username='$username' AND password='$password' AND isAdmin=TRUE";
         $adminResult = $conn->query($adminSql);
 
         if ($adminResult->num_rows > 0) {
@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // if credentials doesn't match
-    echo "<script>alert('Log in error. Please check your email or password.');
+    // if credentials don't match
+    echo "<script>alert('Log in error. Please check your username or password.');
             document.location.href = '../index.html'; 
         </script>";
     session_destroy();

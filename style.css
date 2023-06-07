@@ -1230,6 +1230,29 @@ img.post-image {
     margin-right: 40px;
 } 
 
+/*----- Customized radio buttons
+--------------------------------------------------------------*/
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+}
+
+.radio-toolbar label {
+  width: 35%;
+  display: inline-block;
+  padding: 5px 20px;
+  font-size: 16px;
+  background-color: #ff98ee;
+  color: white;
+  border: solid 1px;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+  background-color: white;
+  color: #ff98ee;
+  border-color: #ff98ee;
+}
+
 /* - Search Form hover Effects
 ------------------------------------------------------------- */
 #header-wrap .action-menu {

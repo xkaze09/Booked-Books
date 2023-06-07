@@ -82,8 +82,8 @@
 								<form action="php/login.php" method="POST" class="dropdown-menu px-3 dropdown-menu-end" style="width: 200% !important;" id="login">
 									<h3 class="text-center p-0 m-1">Log-In</h3>
 									<div class="mb-1">
-										<label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
-										<input name="email" type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com" required>
+										<label for="exampleDropdownFormEmail2" class="form-label">Username</label>
+										<input name="username" class="form-control" id="exampleDropdownFormEmail2" placeholder="Enter your username" required>
 									</div>
 									<div class="mb-1">
    	 									<label for="exampleDropdownFormPassword2" class="form-label">Password</label>
@@ -100,7 +100,7 @@
 									<div class="align-center d-flex flex-column">
 										<button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="user" onclick="changeAction('php/login.php')">Log in as user</button>
 										<button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="admin" onclick="changeAction('php/login.php')">Log in as admin</button>
-										<a href="#" style="font-size: 14px;" onclick="changeAction('php/signup.php')">Don't have an account? Sign up now.</a>
+										<a href="#" style="font-size: 14px;" onclick="window.location.href='php/signup.php'">Don't have an account? Sign up now.</a>
 									</div>
 								</form>
 							</div>
