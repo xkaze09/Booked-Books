@@ -166,6 +166,8 @@ fetchBooks();
 var editModal = document.getElementById('edit-modal');
 var editForm = document.getElementById('edit-book-form');
 var editMessage = document.getElementById('edit-message');
+var editCoverImageInput = document.getElementById('edit-cover-image');
+var editCoverPreview = document.getElementById('edit-cover-preview');
 
 function openEditModal(bookId) {
   // Reset the form and message
@@ -187,10 +189,10 @@ function openEditModal(bookId) {
           editForm.elements['edit-quantity'].value = book.quantity;
 
           // Display the cover image
-          var editCoverImageInput = document.getElementById('edit-cover-image');
-          if (editCoverImageInput) {
+          if (editCoverImageInput && editCoverPreview) {
             editCoverImageInput.value = ''; // Clear the value to avoid browser-specific styling restrictions
             editCoverImageInput.style.backgroundImage = "url('" + book.cover_image + "')";
+            editCoverPreview.style.backgroundImage = "url('" + book.cover_image + "')";
           }
 
           // Show the edit modal
@@ -210,7 +212,7 @@ function closeEditModal() {
   editModal.style.display = 'none';
 
   // Reset the form and message after the modal is hidden
-  setTimeout(function() {
+  setTimeout(function () {
     if (editForm) {
       editForm.reset();
       editMessage.textContent = '';
@@ -221,54 +223,78 @@ function closeEditModal() {
   fetchBooks();
 }
 
-// Add event listener to close button
-var closeButton = editModal.querySelector('.close');
-closeButton.addEventListener('click', function() {
-  closeEditModal();
-});
+// Function to handle cover image preview
+function handleCoverImagePreview(event) {
+  if (editCoverPreview && event.target.files && event.target.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      editCoverPreview.style.backgroundImage = "url('" + e.target.result + "')";
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+}
 
 // Function to update a book
 function updateBook(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+  event.preventDefault(); // Prevent the form from submitting normally
 
-    // Retrieve form data
-    var form = event.target;
-    var formData = new FormData(form);
+  // Retrieve form data
+  var form = event.target;
+  var formData = new FormData(form);
 
-    // Perform form submission using AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', './php/update_book.php', true);
+  // Perform form submission using AJAX
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', './php/update_book.php', true);
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Request was successful
-                console.log('Response:', xhr.responseText); // Log the response text
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        // Request was successful
+        console.log('Response:', xhr.responseText); // Log the response text
 
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    console.log('Parsed response:', response); // Log the parsed response object
+        try {
+          var response = JSON.parse(xhr.responseText);
+          console.log('Parsed response:', response); // Log the parsed response object
 
-                    if (response.success) {
-                        editMessage.textContent = 'Book updated successfully!';
-                        // Refresh the book table
-                        fetchBooks();
-                    } else {
-                        editMessage.textContent = 'Failed to update book. Please try again.';
-                    }
-                } catch (error) {
-                    console.log('Error parsing JSON response:', error);
-                }
-            } else {
-                // Request encountered an error
-                console.log('Error: ' + xhr.status);
-            }
+          if (response.success) {
+            editMessage.textContent = 'Book updated successfully!';
+            // Refresh the book table
+            fetchBooks();
+          } else {
+            editMessage.textContent = 'Failed to update book. Please try again.';
+          }
+        } catch (error) {
+          console.log('Error parsing JSON response:', error);
         }
-    };
+      } else {
+        // Request encountered an error
+        console.log('Error: ' + xhr.status);
+      }
+    }
+  };
 
-    xhr.send(formData);
+  // Append the cover image file to the form data
+  var coverImageFile = editCoverImageInput.files[0];
+  if (coverImageFile) {
+    formData.append('edit-cover-image', coverImageFile, coverImageFile.name);
+  }
+
+  xhr.send(formData);
 }
-document.getElementById('edit-book-form').addEventListener('submit', updateBook);
+
+// Attach event listeners
+if (editForm) {
+  editForm.addEventListener('submit', updateBook);
+}
+
+var closeButton = document.querySelector('#edit-modal .close');
+if (closeButton) {
+  closeButton.addEventListener('click', closeEditModal);
+}
+
+if (editCoverImageInput) {
+  editCoverImageInput.addEventListener('change', handleCoverImagePreview);
+}
 
 
 // Delete a book
