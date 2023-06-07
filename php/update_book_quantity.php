@@ -23,10 +23,25 @@ error_log('Received rentedQuantity: ' . $rentedQuantity);
 if ($bookId === null || $rentedQuantity === null) {
     $response = array('success' => false, 'message' => 'Invalid book ID or quantity');
 } else {
+    // Fetch the current quantity of the book
+    $sqlSelect = "SELECT quantity FROM books WHERE id = ?";
+    $stmtSelect = $conn->prepare($sqlSelect);
+    $stmtSelect->bind_param('i', $bookId);
+    $stmtSelect->execute();
+    $stmtSelect->bind_result($currentQuantity);
+    $stmtSelect->fetch();
+    $stmtSelect->close();
+
+    // Ensure the rentedQuantity is a positive value
+    $rentedQuantity = max(0, intval($rentedQuantity));
+
+    // Calculate the new quantity after renting
+    $newQuantity = max(0, $currentQuantity - $rentedQuantity);
+
     // Update the book quantity in the database
-    $sqlUpdate = "UPDATE books SET quantity = quantity - ? WHERE id = ?";
+    $sqlUpdate = "UPDATE books SET quantity = ? WHERE id = ?";
     $stmtUpdate = $conn->prepare($sqlUpdate);
-    $stmtUpdate->bind_param('ii', $rentedQuantity, $bookId);
+    $stmtUpdate->bind_param('ii', $newQuantity, $bookId);
 
     if ($stmtUpdate->execute()) {
         $response = array('success' => true, 'message' => 'Book quantity updated successfully');
