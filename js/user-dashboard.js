@@ -177,9 +177,8 @@ function getBookId(bookId) {
   
     return null;
   }
-  
   // Add a book to the cart
-  function addToCart(book) {
+function addToCart(book) {
     var cartItems = document.getElementById('cart-items');
     var cartCount = document.getElementById('cart-count');
   
@@ -198,11 +197,12 @@ function getBookId(bookId) {
       // Update the cart count
       var count = parseInt(cartCount.textContent) || 0;
       cartCount.textContent = count + 1;
+    } else {
+      console.error('Failed to retrieve valid book ID for:', book.title);
     }
   }
   
-  
-  // Checkout and rent books from the cart
+// Checkout and rent books from the cart
 function checkoutRent() {
     var cartItems = document.getElementById('cart-items');
     var cartCount = document.getElementById('cart-count');
@@ -215,7 +215,12 @@ function checkoutRent() {
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
       var bookId = item.getAttribute('data-book-id');
-      bookIds.push(bookId);
+  
+      // Retrieve the actual book ID using getBookId function
+      var actualBookId = getBookId(bookId);
+      if (actualBookId !== null) {
+        bookIds.push(actualBookId);
+      }
     }
   
     // Clear the cart items and count
@@ -232,42 +237,42 @@ function checkoutRent() {
     fetchBooks();
   }
   
-  function updateBookQuantity(bookId, newQuantity) {
+  
+  function updateBookQuantity(bookId, rentedQuantity) {
     // Create a new FormData object
     var formData = new FormData();
-    
-    // Append the bookId and quantity to the FormData object
+
+    // Append the bookId and rentedQuantity to the FormData object
     formData.append('bookId', bookId);
-    formData.append('quantity', newQuantity);
-  
+    formData.append('rentedQuantity', rentedQuantity);
+
     // Make an AJAX request to update the quantity in the database
     var xhr = new XMLHttpRequest();
     xhr.open('POST', './php/update_book_quantity.php', true);
     xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          try {
-            var response = JSON.parse(xhr.responseText);
-            if (response.success) {
-              // Book quantity successfully updated in the database
-              console.log('Book quantity updated in the database');
-              console.log('Response:', response);
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // Book quantity successfully updated in the database
+                        console.log('Book quantity updated in the database');
+                        console.log('Response:', response);
+                    } else {
+                        // Error updating book quantity
+                        console.error('Failed to update book quantity:', response.message);
+                    }
+                } catch (error) {
+                    // Error parsing JSON response
+                    console.error('Failed to parse JSON response:', error);
+                }
             } else {
-              // Error updating book quantity
-              console.error('Failed to update book quantity:', response.message);
+                // Error making the request
+                console.error('Failed to update book quantity:', xhr.statusText);
             }
-          } catch (error) {
-            // Error parsing JSON response
-            console.error('Failed to parse JSON response:', error);
-          }
-        } else {
-          // Error making the request
-          console.error('Failed to update book quantity:', xhr.statusText);
         }
-      }
     };
-  
+
     // Send the FormData object as the request body
     xhr.send(formData);
-  }
-  
+}
