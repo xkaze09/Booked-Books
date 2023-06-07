@@ -45,10 +45,10 @@
 					<nav id="navbar">
 						<div class="main-menu stellarnav">
 							<ul class="menu-list">
-								<li class="menu-item"><a href="./index.html" class="nav-link" data-effect="Home">Home</a></li>
-								<li class="menu-item active"><a href="./about.html" class="nav-link" data-effect="About">About</a></li>
-								<li class="menu-item"><a href="./browse.html" class="nav-link" data-effect="Browse">Browse</a></li>
-								<li class="menu-item"><a href="./contact.html" class="nav-link" data-effect="Contact">Contact</a></li>
+								<li class="menu-item active"><a href="./index.html" class="nav-link" data-effect="Home">Home</a></li>
+								<li class="menu-item"><a href="./about.php" class="nav-link" data-effect="About">About</a></li>
+								<li class="menu-item"><a href="./browse.php" class="nav-link" data-effect="Browse">Browse</a></li>
+								<li class="menu-item"><a href="./contact.php" class="nav-link" data-effect="Contact">Contact</a></li>
 							</ul>
 							<div class="hamburger">
 				                <span class="bar"></span>
@@ -78,30 +78,33 @@
 					<div class="col-md-6">
 						<div class="right-element d-flex btn-group float-end m-0 align-top">
 							<div class="dropdown m-0 p-1" id="subnav">
-								<a href="#" class="user-account for-buy bg-transparent btn dropdown-toggle m-0" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="60,20"><i class="icon icon-user"></i><span> Sign In</span></a>
-								<form class="dropdown-menu px-3 dropdown-menu-end" style="width: 200% !important;">
-									<h3 class="text-center p-0">Log-In</h3>
+								<a href="#" class="user-account for-buy bg-transparent btn dropdown-toggle m-0" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="60,20"><i class="icon icon-user"></i><span> Log in</span></a>
+								<form action="php/login.php" method="POST" class="dropdown-menu px-3 dropdown-menu-end" style="width: 200% !important;" id="login">
+									<h3 class="text-center p-0 m-1">Log-In</h3>
 									<div class="mb-1">
 										<label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
-										<input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+										<input name="email" type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com" required>
 									</div>
 									<div class="mb-1">
-										<label for="exampleDropdownFormPassword2" class="form-label">Password</label>
-										<input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+   	 									<label for="exampleDropdownFormPassword2" class="form-label">Password</label>
+    									<input name="password" type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password" required>
 									</div>
 									<div class="mb-1">
 										<div class="form-check align-middle">
-											<input type="checkbox" class="form-check-input" id="dropdownCheck2">
+											<input type="checkbox" class="form-check-input my-1" id="dropdownCheck2">
 											<label class="form-check-label align-top p-0" for="dropdownCheck2">
 											Remember me
 											</label>
 										</div>
 									</div>
-									<div class="align-center">
-										<button type="submit" class="btn btn-default bg-light py-1 mx-auto">Sign in</button>
+									<div class="align-center d-flex flex-column">
+										<button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="user" onclick="changeAction('php/login.php')">Log in as user</button>
+										<button type="submit" class="btn btn-default bg-light py-1 my-0 mx-auto" style="font-size: small;" name="admin" onclick="changeAction('php/login.php')">Log in as admin</button>
+										<a href="#" style="font-size: 14px;" onclick="changeAction('php/signup.php')">Don't have an account? Sign up now.</a>
 									</div>
 								</form>
 							</div>
+
 							<div class="dropdown m-0 p-1" id="subnav">
 								<a href="#" class="cart for-buy btn bg-transparent dropdown-toggle m-0" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="10,20"><i class="icon icon-clipboard"></i><span> To Rent: 0</span></a>
 								<form class="dropdown-menu px-3 dropdown-menu-end" style="width: 200%;">

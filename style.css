@@ -39,6 +39,23 @@
 
 /* 2.1 General Styles
 /*----------------------------------------------*/
+
+/* Remove scrollbars */
+
+@-moz-document url-prefix() { /* Disable scrollbar Firefox */
+  html{
+    scrollbar-width: none;
+  }
+}
+
+*::-webkit-scrollbar{
+  display: none;
+}
+
+.hide-scrollbar{
+  scrollbar-color: var(--accent-color);
+}
+
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -46,11 +63,15 @@
 }
 html {
   box-sizing: border-box;
+  scrollbar-width: none;
 }
 body {
   font-family: var(--body-font);
   font-size: 16px;
   line-height: 2;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
   color: var(--dark-text-color);
   background-color: var(--secondary-color);
 }
@@ -343,6 +364,10 @@ label > .label-body {
   display: inline-block;
   margin-left: .5rem;
   font-weight: normal; }
+
+.form-control{
+  margin-bottom: 5px;
+}
 
 /*------------------------------------------------
 /* 2.4 Lists

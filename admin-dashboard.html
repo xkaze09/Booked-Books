@@ -170,7 +170,7 @@
 <!-- Adding Books -->
 <div id="add-book-section" style="display: none;">
     <h2>Add Book</h2>
-    <form id="add-book-form" action="test.php" method="POST" enctype="multipart/form-data">
+    <form id="add-book-form" action="" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" name="title" id="title" required>
 
@@ -195,7 +195,7 @@
         <label for="quantity">Quantity:</label>
         <input type="number" name="quantity" id="quantity" min="1" required>
 
-        <input type="submit" value="Add Book">
+        <input type="submit" value="Add Book" id="submitbook">
     </form>
     <div id="message"></div> <!-- Div for displaying the message -->
 </div>
@@ -311,12 +311,36 @@
 </div>
 <script src="js/script.js"></script>
 <script>
+	
+	// function addbook(){
+	// 	var form = $('#add-book-form');
+	// 	var formData = new FormData(form);
+	// 	console.log(formData);
+	// 	$.ajax({
+	// 		processData: false,
+	// 		contentType: false,
+
+	// 		url: './php/add_book.php',
+	// 		dataType: 'json',
+	// 		type: 'POST',
+	// 		data: formData,
+	// 		success: function(response,responseStatus){
+	// 			console.log(responseStatus); // You can handle the response as needed
+    //             // $('#add-book-form').reset(); // Reset the form fields after successful submission
+	// 		},
+	// 		error: function(response,responseStatus){
+	// 			console.log("Error: "+responseStatus);
+	// 		}
+	// 	});
+	// };
+
 	document.getElementById('add-book-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve form data
     var form = event.target;
     var formData = new FormData(form);
+	console.log(formData);
 
     // Perform form submission using AJAX
     var xhr = new XMLHttpRequest();
@@ -338,7 +362,22 @@
 
     xhr.send(formData);
 });
+
 // Function to fetch and display book data
+
+	// function fetchBooks() {
+	// 	$.ajax({
+	// 		url: "./php/get_books.php",
+	// 		method: "GET",
+	// 		success: function(response, responseStatus){
+	// 			console.log(response);
+	// 			displayBooks(response);
+	// 		},
+	// 		error: function(response,responseStatus){
+	// 			console.log("Error: "+responseStatus);
+	// 		}
+	// 	});
+	// }
 function fetchBooks() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './php/get_books.php', true);

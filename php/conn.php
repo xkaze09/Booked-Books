@@ -12,7 +12,7 @@ if ($conn->connect_error){
 }
 
 // SQL statements to create the users table
-$sql_users = "CREATE TABLE users (
+$sql_users = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
@@ -25,7 +25,7 @@ if ($conn->query($sql_users) === TRUE) {
 }
 
 // SQL statements to create the admins table
-$sql_admins = "CREATE TABLE admins (
+$sql_admins = "CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
@@ -38,7 +38,7 @@ if ($conn->query($sql_admins) === TRUE) {
 }
 
 // SQL statements to create the books table
-$sql_books = "CREATE TABLE books (
+$sql_books = "CREATE TABLE IF NOT EXISTS books (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
 	author VARCHAR(255) NOT NULL,
@@ -55,5 +55,5 @@ if ($conn->query($sql_books) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
-$conn->close();
+// $conn->close();
 ?>
