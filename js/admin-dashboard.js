@@ -227,9 +227,6 @@ closeButton.addEventListener('click', function() {
   closeEditModal();
 });
 
-
-
-
 // Function to update a book
 function updateBook(event) {
     event.preventDefault(); // Prevent the form from submitting normally
