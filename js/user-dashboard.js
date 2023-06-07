@@ -1,3 +1,58 @@
+// Fetch books from the server
+function fetchBooks() {
+    // Make an AJAX request to fetch the books
+    fetch('./php/get_books.php')
+      .then(response => response.json())
+      .then(data => {
+        // Clear the table body
+        var table = document.getElementById('book-list');
+        table.innerHTML = '';
+  
+        // Iterate over the books and add rows to the table
+        data.forEach(book => {
+          var row = table.insertRow();
+  
+          // Add cells to the row
+          var titleCell = row.insertCell();
+          titleCell.textContent = book.title;
+  
+          var authorCell = row.insertCell();
+          authorCell.textContent = book.author;
+  
+          var descriptionCell = row.insertCell();
+          descriptionCell.textContent = book.description;
+  
+          var genreCell = row.insertCell();
+          genreCell.textContent = book.genre;
+  
+          var availabilityCell = row.insertCell();
+          availabilityCell.textContent = book.availability ? 'Available' : 'Not Available';
+  
+          var quantityCell = row.insertCell();
+          quantityCell.textContent = book.quantity;
+  
+          var coverImageCell = row.insertCell();
+          var coverImage = document.createElement('img');
+          coverImage.src = book.cover_image;
+          coverImage.alt = book.title;
+          coverImageCell.appendChild(coverImage);
+  
+          var actionsCell = row.insertCell();
+          var rentButton = document.createElement('button');
+          rentButton.textContent = 'Rent';
+          rentButton.onclick = function () {
+            addToCart(book);
+            updateBookQuantity(book.id, book.quantity);
+          };          
+          actionsCell.appendChild(rentButton);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching books:', error);
+      });
+  }
+  
+
 // Toggle visibility of the View Books section for users
 function toggleViewBooks() {
     var viewBooksSection = document.getElementById('view-books-section');
@@ -10,10 +65,6 @@ function toggleViewBooks() {
     // Select the "All" genre option
     onGenreButtonClick('');
   }
-  
-  
-  // Fetch the books from the server
-  fetchBooks();
   
   // Display the books on the page
   function displayBooks(books) {
@@ -102,34 +153,121 @@ function toggleViewBooks() {
     // Call the filterBooksByGenre function with the selected genre
     filterBooksByGenre(genre);
   }
+
+// Function to retrieve the book ID
+function getBookId(bookId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', './php/get_book_id.php?bookId=' + bookId, false);  // Synchronous request
+    xhr.send();
+  
+    if (xhr.status === 200) {
+      try {
+        var response = JSON.parse(xhr.responseText);
+        if (response.success) {
+          return response.bookId;
+        } else {
+          console.error('Failed to retrieve book ID:', response.message);
+        }
+      } catch (error) {
+        console.error('Failed to parse JSON response:', error);
+      }
+    } else {
+      console.error('Failed to retrieve book ID:', xhr.statusText);
+    }
+  
+    return null;
+  }
   
   // Add a book to the cart
   function addToCart(book) {
     var cartItems = document.getElementById('cart-items');
     var cartCount = document.getElementById('cart-count');
   
-    // Create a new item element
-    var itemElement = document.createElement('div');
-    itemElement.textContent = book.title;
+    // Retrieve the book ID using the getBookId function
+    var bookId = getBookId(book.id);
   
-    // Append the item to the cart
-    cartItems.appendChild(itemElement);
+    if (bookId !== null) {
+      // Create a new item element
+      var itemElement = document.createElement('div');
+      itemElement.textContent = book.title;
+      itemElement.setAttribute('data-book-id', bookId);
   
-    // Update the cart count
-    var count = parseInt(cartCount.textContent) || 0;
-    cartCount.textContent = count + 1;
+      // Append the item to the cart
+      cartItems.appendChild(itemElement);
+  
+      // Update the cart count
+      var count = parseInt(cartCount.textContent) || 0;
+      cartCount.textContent = count + 1;
+    }
   }
   
+  
   // Checkout and rent books from the cart
-  function checkoutRent() {
+function checkoutRent() {
     var cartItems = document.getElementById('cart-items');
     var cartCount = document.getElementById('cart-count');
+  
+    // Retrieve the cart items
+    var items = cartItems.children;
+    var bookIds = [];
+  
+    // Retrieve the book IDs from the cart items
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var bookId = item.getAttribute('data-book-id');
+      bookIds.push(bookId);
+    }
   
     // Clear the cart items and count
     cartItems.innerHTML = '';
     cartCount.textContent = '0';
   
-    // logic for renting the books and processing the checkout
-    // ...
+    // Update book quantities in the table and database
+    for (var j = 0; j < bookIds.length; j++) {
+      var bookId = bookIds[j];
+      updateBookQuantity(bookId, 1);
+    }
+  
+    // Refresh the book list to update the quantity in the table
+    fetchBooks();
+  }
+  
+  function updateBookQuantity(bookId, newQuantity) {
+    // Create a new FormData object
+    var formData = new FormData();
+    
+    // Append the bookId and quantity to the FormData object
+    formData.append('bookId', bookId);
+    formData.append('quantity', newQuantity);
+  
+    // Make an AJAX request to update the quantity in the database
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './php/update_book_quantity.php', true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          try {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+              // Book quantity successfully updated in the database
+              console.log('Book quantity updated in the database');
+              console.log('Response:', response);
+            } else {
+              // Error updating book quantity
+              console.error('Failed to update book quantity:', response.message);
+            }
+          } catch (error) {
+            // Error parsing JSON response
+            console.error('Failed to parse JSON response:', error);
+          }
+        } else {
+          // Error making the request
+          console.error('Failed to update book quantity:', xhr.statusText);
+        }
+      }
+    };
+  
+    // Send the FormData object as the request body
+    xhr.send(formData);
   }
   
