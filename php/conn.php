@@ -14,25 +14,14 @@ if ($conn->connect_error){
 // SQL statements to create the users table
 $sql_users = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR (255),
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    password VARCHAR(255) NOT NULL,
+    isAdmin BOOLEAN NOT NULL DEFAULT FALSE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
 if ($conn->query($sql_users) === TRUE) {
     echo "Table 'users' created successfully.";
-} else {
-    echo "Error creating table: " . $conn->error;
-}
-
-// SQL statements to create the admins table
-$sql_admins = "CREATE TABLE IF NOT EXISTS admins (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-
-if ($conn->query($sql_admins) === TRUE) {
-    echo "Table 'admins' created successfully.";
 } else {
     echo "Error creating table: " . $conn->error;
 }
