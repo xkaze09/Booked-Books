@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 // Retrieve books with cover images
-$sql = "SELECT * FROM books";
+$sql = "SELECT * FROM books NATURAL JOIN genres";
 $result = $conn->query($sql);
 
 // Create an array to store the book data

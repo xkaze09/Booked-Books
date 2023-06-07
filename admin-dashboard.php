@@ -35,13 +35,14 @@
 		<link rel="stylesheet" href="css/vendor.css">
 		<!-- Style.css for custom styles -->
 		<link rel="stylesheet" href="style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js" integrity="sha512-F/gIMdDfda6OD2rnzt/Iyp2V9JLHlFQ+EUyixDg9+rkwjqgW1snpkpx7FD5FV1+gG2fmFj7I3r6ReQDUidHelA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 	</head>
 <body class="container-fluid hide-scrollbar d-flex flex-column" style="width: 100vw;height: 100vh;">
-	<div class="row flex-grow-1">
-		<div class="container-fluid overflow-scroll hide-scrollbar d-flex">
-			<div class="row w-100">
-				<div class="col-md-3 flex-shrink-0 p-3 overflow-scroll">
+	<div class="row flex-grow-1 h-100">
+		<div class="container-fluid overflow-scroll hide-scrollbar d-flex h-100">
+			<div class="row w-100 h-100">
+				<div class="col-md-3 flex-shrink-0 p-3 overflow-scroll h-100">
 					<a href="admin-dashboard.php" class="justify-content-center align-self-center">
 						<img src="images/main-logo.png" alt="logo" class="img-fluid">
 					</a>
@@ -53,7 +54,7 @@
 						</button>
 						<div class="collapse" id="dashboard-collapse">
 						  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small my-0">
-							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded" data-target="main-dashboard">Overview</a></li>
 							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded"></a></li>
 							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Monthly</a></li>
 							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Annually</a></li>
@@ -97,10 +98,22 @@
 					  </li>
 					</ul>
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-9 h-100 overflow-scroll">
 					<main class="ms-sm-auto px-md-4" id="admin-content">
 						<!-- Dashboard -->
 						<div id="main-dashboard" class="admin-panels">
+							<h2>Total no. of </h2>
+							<p>
+							<?php
+								include_once 'php/conn.php';
+
+								$sql = "SELECT COUNT(*) FROM books";
+								$result = $conn -> query($sql);
+								while($row = $result->fetch_assoc()){
+									echo "".$row["COUNT(*)"];
+								}
+								$conn -> close();
+							?></p>
 							<canvas id="myChart" class="w-100"></canvas>
 						</div>
 
@@ -108,7 +121,7 @@
 						<!-- Adding Books -->
 						<div id="add-book" class="admin-panels w-100">
 							<h2>Add Book</h2>
-							<form id="add-book-form" action="" method="POST" enctype="multipart/form-data">
+							<form id="add-book-form" class="m-0 stop-submit" action="" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6">
 										<label for="cover_image">Cover Image:</label>
@@ -135,9 +148,27 @@
 										<textarea name="description" id="description" class="w-100" required></textarea>
 
 										<label for="genre">Genre:</label>
-										<input type="text" name="genre" id="genre" required>
+										<select name="genre" id="genre" required>
+											<!-- Show genres -->
+											<?php
+												include 'php/conn.php';
+
+												$sql = "SELECT * from genres";
+												$result = $conn->query($sql);
+
+												if($result->num_rows > 0){
+													while($row = $result->fetch_assoc()){
+														echo "<option value='".$row['genre']."'>".$row['genre']."</option>";
+													}
+												}else{
+													echo "No options available";
+												}
+
+												$conn->close();
+											?>
+										</select>
 									</div>
-									<input type="submit" class="submit" value="Add Book" id="submitbook">
+									<input type="submit" class="submit m-0" value="Add Book" id="submitbook">
 								</div>
 							</form>
 							<div id="message"></div> <!-- Div for displaying the message -->
@@ -147,19 +178,32 @@
 						<div id="library" class="admin-panels w-100">
 							<h2>View Books</h2>
 							<div id="message">What do you want to do?</div> <!-- Div for displaying the message -->
-							<button onclick="filterBooksByGenre('')">All</button>
-							<button onclick="filterBooksByGenre('Mystery')">Mystery</button>
-							<button onclick="filterBooksByGenre('Fantasy')">Fantasy</button>
-							<button onclick="filterBooksByGenre('Romance')">Romance</button>
-							<table id="book-table">
-								<tr>
+							<div class="dropdown show">
+								<a href="#" class="bg-transparent btn text-secondary dropdown-toggle m-0" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Filter by Genre</a>
+								<div class="dropdown-menu dropdown-menu-end p-1">
+									<a class="text-decoration-none text-secondary" onclick="filterBooksByGenre()">All</a><br>
+									<?php
+										include "php/conn.php";
+										$sql = "SELECT * FROM genres";
+										$result = $conn->query($sql);
+										if($result->num_rows > 0){
+											while($row = $result->fetch_assoc()){
+												echo "<a class='text-decoration-none text-secondary' onclick=\"filterBooksByGenre('".$row['genre']."')\">".$row['genre']."</a><br>";
+											}
+										}
+									?>
+								</div>
+							</div>
+							<table id="book-table" class="w-100">
+								<tr data-sort-method='none'>
 									<th>Title</th>
 									<th>Author</th>
 									<th>Description</th>
 									<th>Genre</th>
 									<th>Availability</th>
 									<th>Quantity</th>
-									<th>Cover Image</th>
+									<th data-sort-method='none'>Cover Image</th>
+									<th data-sort-method='none'>Actions</th>
 								</tr>
 							</table>
 						</div>
@@ -175,9 +219,12 @@
 <script src="./js/script.js"></script>
 <script>
 
+	$('.stop-submit').submit(function (e) {
+		e.preventDefault();
+	});
+
 	//Submit form to add books
 	$('#add-book-form').submit(function (e) {
-		e.preventDefault();
 
 		let form = document.querySelector('form');
 			formData = new FormData(form);
@@ -270,6 +317,12 @@
 			coverImage.src = book.cover_image;
 			coverImage.width = 100; // Adjust the width as needed
 			coverImageCell.appendChild(coverImage);
+
+			var actionCell = row.insertCell(7);
+			var node = document.createElement("div");
+			node.innerHTML += "<form class='stop-submit m-0' action='php/library_functions.php' method='post'><input type='hidden' class='m-0' name='delete' value='"+book.id+"'><input type='submit'  class='bg-transparent text-secondary w-100 m-0' value='Delete'></form>";
+			node.innerHTML += "<form class='stop-submit m-0' action='php/library_functions.php' method='post'><input type='hidden' class='m-0' name='edit' value='"+book.id+"'><input type='submit'  class='bg-transparent text-secondary w-100 m-0' value='Edit'></form>";
+			actionCell.appendChild(node);
 		}
 	}
 
@@ -304,6 +357,7 @@
 			});
 	}
 
+
 	//Toggle main body
 	$('.book-toggle').click(function() {
 		$('.admin-panels').hide();
@@ -313,6 +367,8 @@
 
 	$('.admin-panels').hide();
 	$("#main-dashboard").show();
+	filterBooksByGenre();
+	new Tablesort(document.getElementById('book-table'));
 
 </script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.2.2/script/jquery.jscrollpane.min.js" integrity="sha512-EqofP+sBEn/OWcyAINAUnewpwC0e9zc0GvyiVeE3qeHYxqtdCcNocVBUiZhGWbPFWGTWxfJ60CcOK6HQ6G7uiw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
