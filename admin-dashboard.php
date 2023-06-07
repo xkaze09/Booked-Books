@@ -4,9 +4,11 @@
 		<!-- Check if user is an admin -->
 		<?php
 		session_start();
-		if (is_null($_SESSION["isAdmin"])){
-			echo "<meta http-equiv=\"refresh\" content=\"0; URL='index.html'\"/>";
-		}
+		if (isset($_SESSION["isAdmin"])){
+			if ($_SESSION["isAdmin"] == false){
+				echo "<meta http-equiv=\"refresh\" content=\"0; URL='index.html'\"/>";
+			}
+		}else{echo "<meta http-equiv=\"refresh\" content=\"0; URL='index.html'\"/>";};
 		?>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
