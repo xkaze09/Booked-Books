@@ -15,8 +15,6 @@
 		<meta name="description" content="">
 		<meta name="keywords" content="">
 		<meta name="author" content="">
-		<!-- Chart.js CDN -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<!-- JQuery CDN -->
 		<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 		<!-- Bootstrap CDN -->
@@ -37,6 +35,7 @@
 		<link rel="stylesheet" href="css/vendor.css">
 		<!-- Style.css for custom styles -->
 		<link rel="stylesheet" href="style.css">
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 	</head>
 <body class="container-fluid hide-scrollbar d-flex flex-column" style="width: 100vw;height: 100vh;">
 	<div class="row flex-grow-1">
@@ -145,6 +144,7 @@
 						</div>
 
 						<!-- Viewing Books -->
+
 					</main>
 				</div>
 			</div>
@@ -156,6 +156,29 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script>
 <script src="./js/script.js"></script>
 <script>
+
+	function addbook(){
+		var form = $('#add-book-form');
+		var formData = new FormData(form);
+		console.log(formData);
+		$.ajax({
+			processData: false,
+			contentType: false,
+
+			url: './php/add_book.php',
+			dataType: 'json',
+			type: 'POST',
+			data: formData,
+			success: function(response,responseStatus){
+				console.log(responseStatus); // You can handle the response as needed
+                // $('#add-book-form').reset(); // Reset the form fields after successful submission
+			},
+			error: function(response,responseStatus){
+				console.log("Error: "+responseStatus);
+			}
+		});
+	};
+
 	function previewFile() {
 		var preview = $('#cover');
 		var file 	= document.querySelector('#cover_image').files[0];
@@ -175,13 +198,12 @@
 	}
 
 	$('.book-toggle').click(function() {
-    console.log()
-    $('#admin-content div').hide();
-    var target = '#' + $(this).data('target');
-    $(target).show();
+		$('.admin-panels').hide();
+		var target = '#' + $(this).data('target');
+		$(target).show();
 	});
 
-	$('#admin-content div').hide();
+	$('.admin-panels').hide();
 	$("#main-dashboard").show();
 
 </script>
