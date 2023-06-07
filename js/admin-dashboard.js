@@ -168,42 +168,67 @@ var editForm = document.getElementById('edit-book-form');
 var editMessage = document.getElementById('edit-message');
 
 function openEditModal(bookId) {
-    // Reset the form and message
-    var editForm = document.getElementById('edit-book-form');
-    if (editForm) {
-        editForm.reset();
-        editMessage.textContent = '';
+  // Reset the form and message
+  if (editForm) {
+    editForm.reset();
+    editMessage.textContent = '';
 
-        // Get the book data
-        getBookById(bookId)
-            .then(function(book) {
-                if (book) {
-                    // Pre-fill the form with the book data
-                    editForm.elements['id'].value = book.id;
-                    editForm.elements['edit-title'].value = book.title;
-                    editForm.elements['edit-author'].value = book.author;
-                    editForm.elements['edit-description'].value = book.description;
-                    editForm.elements['edit-genre'].value = book.genre;
-                    editForm.elements['edit-availability'].value = book.availability;
-                    editForm.elements['edit-quantity'].value = book.quantity;
+    // Get the book data
+    getBookById(bookId)
+      .then(function (book) {
+        if (book) {
+          // Pre-fill the form with the book data
+          editForm.elements['id'].value = book.id;
+          editForm.elements['edit-title'].value = book.title;
+          editForm.elements['edit-author'].value = book.author;
+          editForm.elements['edit-description'].value = book.description;
+          editForm.elements['edit-genre'].value = book.genre;
+          editForm.elements['edit-availability'].value = book.availability;
+          editForm.elements['edit-quantity'].value = book.quantity;
 
-                    // Show the edit modal
-                    editModal.style.display = 'block';
-                }
-            })
-            .catch(function(error) {
-                console.log('Error: ' + error.message);
-            });
-    } else {
-        console.log('Error: edit-book-form not found');
-    }
+          // Display the cover image
+          var editCoverImageInput = document.getElementById('edit-cover-image');
+          if (editCoverImageInput) {
+            editCoverImageInput.value = ''; // Clear the value to avoid browser-specific styling restrictions
+            editCoverImageInput.style.backgroundImage = "url('" + book.cover_image + "')";
+          }
+
+          // Show the edit modal
+          editModal.style.display = 'block';
+        }
+      })
+      .catch(function (error) {
+        console.log('Error: ' + error.message);
+      });
+  } else {
+    console.log('Error: edit-book-form not found');
+  }
 }
 
 function closeEditModal() {
-    // Hide the edit modal
-    fetchBooks();
-    editModal.style.display = 'none';
+  // Hide the edit modal
+  editModal.style.display = 'none';
+
+  // Reset the form and message after the modal is hidden
+  setTimeout(function() {
+    if (editForm) {
+      editForm.reset();
+      editMessage.textContent = '';
+    }
+  }, 300); // Delay the reset to ensure the modal animation completes
+
+  // Fetch updated book data
+  fetchBooks();
 }
+
+// Add event listener to close button
+var closeButton = editModal.querySelector('.close');
+closeButton.addEventListener('click', function() {
+  closeEditModal();
+});
+
+
+
 
 // Function to update a book
 function updateBook(event) {
@@ -276,6 +301,7 @@ function deleteBook(bookId) {
         // Send the book ID in the request body
         xhr.send(JSON.stringify({ bookId: bookId }));
     }
+    fetchBooks();
 }
 
 // Function to retrieve a book by its ID

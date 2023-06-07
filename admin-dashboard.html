@@ -203,39 +203,34 @@
 
 <!-- Edit Book Modal -->
 <div id="edit-modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeEditModal()">&times;</span>
-        <h2>Edit Book</h2>
-        <form id="edit-book-form" onsubmit="updateBook(event)">
-            <input type="hidden" name="id" value="">
-            
-            <label for="edit-title">Title:</label>
-            <input type="text" name="edit-title" id="edit-title" required>
-            
-            <label for="edit-author">Author:</label>
-            <input type="text" name="edit-author" id="edit-author" required>
-            
-            <label for="edit-description">Description:</label>
-            <textarea name="edit-description" id="edit-description" required></textarea>
-            
-            <label for="edit-genre">Genre:</label>
-            <input type="text" name="edit-genre" id="edit-genre" required>
-            
-            <label for="edit-availability">Availability:</label>
-            <select name="edit-availability" id="edit-availability" required>
-                <option value="1">Available</option>
-                <option value="0">Not Available</option>
-            </select>
-            
-            <label for="edit-quantity">Quantity:</label>
-            <input type="number" name="edit-quantity" id="edit-quantity" min="1" required>
-            
-            <input type="submit" value="Update">
-        </form>
-        <div id="edit-message"></div> <!-- Div for displaying the message -->
-    </div>
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Edit Book</h2>
+    <form id="edit-book-form">
+      <input type="hidden" id="edit-id" name="id">
+      <label for="edit-title">Title:</label>
+      <input type="text" id="edit-title" name="edit-title" required>
+      <label for="edit-author">Author:</label>
+      <input type="text" id="edit-author" name="edit-author" required>
+      <label for="edit-description">Description:</label>
+      <textarea id="edit-description" name="edit-description" rows="4" required></textarea>
+      <label for="edit-genre">Genre:</label>
+      <input type="text" id="edit-genre" name="edit-genre" required>
+      <label for="edit-availability">Availability:</label>
+      <select id="edit-availability" name="edit-availability" required>
+        <option value="1">Available</option>
+        <option value="0">Not Available</option>
+      </select>
+      <label for="edit-quantity">Quantity:</label>
+      <input type="number" id="edit-quantity" name="edit-quantity" required>
+      <label for="edit-cover-image">Cover Image:</label>
+      <input type="file" id="edit-cover-image" name="edit-cover-image" accept="image/*">
+      <div id="edit-cover-preview" class="cover-preview"></div>
+      <button type="submit">Update</button>
+    </form>
+    <p id="edit-message"></p>
+  </div>
 </div>
-
 
 <!-- Footer -->
 <footer id="footer">

@@ -2,7 +2,7 @@
 require_once 'conn.php';
 
 // Check if all required fields are present
-if (isset($_POST['id']) && isset($_POST['edit-title']) && isset($_POST['edit-author']) && isset($_POST['edit-description']) && isset($_POST['edit-genre']) && isset($_POST['edit-availability']) && isset($_POST['edit-quantity'])) {
+if (isset($_POST['id'], $_POST['edit-title'], $_POST['edit-author'], $_POST['edit-description'], $_POST['edit-genre'], $_POST['edit-availability'], $_POST['edit-quantity'])) {
     // Get the form data
     $id = $_POST['id'];
     $title = $_POST['edit-title'];
@@ -14,7 +14,7 @@ if (isset($_POST['id']) && isset($_POST['edit-title']) && isset($_POST['edit-aut
 
     // Prepare and execute the SQL update statement
     $stmt = $conn->prepare("UPDATE books SET title=?, author=?, description=?, genre=?, availability=?, quantity=? WHERE id=?");
-    $stmt->bind_param("sssssii", $title, $author, $description, $genre, $availability, $quantity, $id);
+    $stmt->bind_param("ssssssi", $title, $author, $description, $genre, $availability, $quantity, $id); // Modified parameter type definition
     $result = $stmt->execute();
 
     if ($result) {
