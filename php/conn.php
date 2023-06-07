@@ -55,5 +55,4 @@ if ($conn->query($sql_books) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
-// $conn->close();
 ?>
