@@ -36,7 +36,7 @@ if ($bookId === null || $rentedQuantity === null) {
     $rentedQuantity = max(0, intval($rentedQuantity));
 
     // Calculate the new quantity after renting
-    $newQuantity = max(0, $currentQuantity - $rentedQuantity);
+    $newQuantity = max(0, $currentQuantity - intval($rentedQuantity));
 
     // Update the book quantity in the database
     $sqlUpdate = "UPDATE books SET quantity = ? WHERE id = ?";
