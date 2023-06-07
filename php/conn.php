@@ -18,7 +18,7 @@ $sql_users = "CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     isAdmin BOOLEAN NOT NULL DEFAULT FALSE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
 if ($conn->query($sql_users) === TRUE) {
     echo "Table 'users' created successfully.";
@@ -28,13 +28,13 @@ if ($conn->query($sql_users) === TRUE) {
 
 // SQL statements to create the books table
 $sql_books = "CREATE TABLE IF NOT EXISTS books (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	title VARCHAR(255) NOT NULL,
-	author VARCHAR(255) NOT NULL,
-	cover_image LONGBLOB,
-	description TEXT,
-	genre VARCHAR(50),
-	availability BOOLEAN DEFAULT true,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    cover_image VARCHAR(255),
+    description TEXT,
+    genre VARCHAR(50),
+    availability BOOLEAN DEFAULT true,
     quantity INT DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
