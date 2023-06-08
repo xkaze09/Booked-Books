@@ -2,8 +2,8 @@
 
 include 'conn.php';
 
-// Retrieve books with cover images
-$sql = "SELECT * FROM books";
+// Retrieve books to confirm will all data
+$sql = "SELECT * FROM books_to_confirm JOIN users ON (users.id = books_to_confirm.book_id) JOIN books ON (books.id = books_to_confirm.id)";
 $result = $conn->query($sql);
 
 // Create an array to store the book data
@@ -11,19 +11,17 @@ $books = array();
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Fetch the cover image path
-        $coverImagePath = "php/" . $row["cover_image"];
                 
         // Add the book data along with the cover image path to the array
         $book = array(
-            "id" => $row["id"],
             "title" => $row["title"],
             "author" => $row["author"],
-            "cover_image" => $coverImagePath,
             "description" => $row["description"],
             "genre" => $row["genre"],
-            "availability" => $row["availability"],
-            "quantity" => $row["quantity"]
+            "rent_date" => $row["rent_date"],
+            "return_date" => $row["return_date"],
+            "status" => $row["status"],
+            "requester" => $row["username"]
         );
         $books[] = $book;
     }
