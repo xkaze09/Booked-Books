@@ -202,14 +202,13 @@ function addToCart(book) {
     }
   }
   
-// Checkout and rent books from the cart
-function checkoutRent() {
+  function checkoutRent() {
     var cartItems = document.getElementById('cart-items');
     var cartCount = document.getElementById('cart-count');
   
     // Retrieve the cart items
     var items = cartItems.children;
-    var bookIds = [];
+    var books = [];
   
     // Retrieve the book IDs from the cart items
     for (var i = 0; i < items.length; i++) {
@@ -219,7 +218,8 @@ function checkoutRent() {
       // Retrieve the actual book ID using getBookId function
       var actualBookId = getBookId(bookId);
       if (actualBookId !== null) {
-        bookIds.push(actualBookId);
+        // Push the book object to the books array
+        books.push({ id: actualBookId });
       }
     }
   
@@ -227,10 +227,13 @@ function checkoutRent() {
     cartItems.innerHTML = '';
     cartCount.textContent = '0';
   
+    // Call the addToConfirmationTable function to add the books to the confirmation table
+    addToConfirmationTable(books);
+  
     // Update book quantities in the table and database
-    for (var j = 0; j < bookIds.length; j++) {
-      var bookId = bookIds[j];
-      updateBookQuantity(bookId, 1);
+    for (var j = 0; j < books.length; j++) {
+      var book = books[j];
+      updateBookQuantity(book.id, 1);
     }
   
     // Refresh the book list to update the quantity in the table
@@ -275,4 +278,29 @@ function checkoutRent() {
 
     // Send the FormData object as the request body
     xhr.send(formData);
+}
+
+// Books to Confirm
+// Function to add books to the confirmation table
+function addToConfirmationTable(books) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', './php/add_to_confirmation_table.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        if (response.success) {
+          console.log('Books added to confirmation table');
+        } else {
+          console.error('Failed to add books to confirmation table:', response.message);
+        }
+      } else {
+        console.error('Failed to add books to confirmation table:', xhr.statusText);
+      }
+    }
+  };
+
+  xhr.send(JSON.stringify({ books: books }));
 }
