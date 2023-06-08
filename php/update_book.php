@@ -2,15 +2,15 @@
 require_once 'conn.php';
 
 // Check if all required fields are present
-if (isset($_POST['id'], $_POST['edit-title'], $_POST['edit-author'], $_POST['edit-description'], $_POST['edit-genre'], $_POST['edit-availability'], $_POST['edit-quantity'])) {
+if (isset($_POST['id'], $_POST['title'], $_POST['author'], $_POST['description'], $_POST['genre'], $_POST['availability'], $_POST['quantity'])) {
     // Get the form data
     $id = $_POST['id'];
-    $title = $_POST['edit-title'];
-    $author = $_POST['edit-author'];
-    $description = $_POST['edit-description'];
-    $genre = $_POST['edit-genre'];
-    $availability = $_POST['edit-availability'];
-    $quantity = $_POST['edit-quantity'];
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $description = $_POST['description'];
+    $genre = $_POST['genre'];
+    $availability = $_POST['availability'];
+    $quantity = $_POST['quantity'];
 
     // Prepare and execute the SQL update statement
     $stmt = $conn->prepare("UPDATE books SET title=?, author=?, description=?, genre=?, availability=?, quantity=? WHERE id=?");

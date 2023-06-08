@@ -1,6 +1,6 @@
 <?php
 
-include_once 'conn.php';
+include 'conn.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -11,6 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $availability = $_POST["availability"];
     $quantity = $_POST["quantity"];
 
+    // Create a savepoint
+    $conn -> query("START TRANSACTION");
+    $conn -> query("SAVEPOINT addbook");
+
     // Handle the cover image file upload
     $targetDirectory = "./uploads/"; // Specify the directory where you want to save the uploaded images
     $targetFile = $targetDirectory . basename($_FILES["cover_image"]["name"]); // Get the file name
@@ -19,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the file is a valid image
     $validExtensions = ["jpg", "jpeg", "png"];
     if (!in_array($imageFileType, $validExtensions)) {
-        echo "Invalid file format. Only JPG, JPEG, and PNG files are allowed.";
+        echo "<script>alert('Invalid file format. Only JPG, JPEG, and PNG files are allowed.');</script>";
         // You can handle the error case as needed (e.g., redirect back to the form with an error message)
         exit;
     }
@@ -34,9 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Execute the statement
         if ($conn->query($sql) === TRUE) {
-            echo "Book added successfully.";
+            echo "<script>alert('Book added successfully.');</script>";
+            // Commit changes
+            $conn -> query("COMMIT");
+            
         } else {
-            echo "Error adding book: " . $conn->error;
+            echo "<script>alert('Error adding book: " . $conn->error.".');</script>";
+            //Rollback all changes on error
+            $conn->query("ROLLBACK TO addbook");
+
         }
     } else {
         echo "Error uploading file.";

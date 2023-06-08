@@ -196,10 +196,10 @@
           <input type="radio" id="user" name="role" value="user" required>
           <label for="user">User</label>
 
-          <input type="radio" id="admin" name="role" value="admin" required>
-          <label for="admin">Admin</label>
+          <input type="radio" id="admin" name="role" value="admin" hidden required>
+          <label for="admin" hidden>Admin</label>
           <br>
-          <p style="font-size: 12px;"><i>Note: Account for admin is for authorized personnel only.</i></p>
+          <!-- <p style="font-size: 12px;"><i>Note: Account for admin is for authorized personnel only.</i></p> -->
         </div>
         <p style="font-size: 12px;"> By clicking "Create account", I understand and agree to the Booked Books' collective <a href="#">Terms</a>, <a href="#">Terms of Use</a>, and <a href="#">Privacy Policy</a>.</p>
         <button class="btn btn-black" type="submit" name="createAcc" style="width: 100% !important;">Create Account</button>
