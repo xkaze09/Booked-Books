@@ -82,7 +82,6 @@
 						  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small my-0">
 							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded book-toggle" data-target="user-overview">Overview</a></li>
 							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded book-toggle" data-target="confirm-books">Confirm Books</a></li>
-							<li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li>
 						  </ul>
 						</div>
 					  </li>
@@ -92,8 +91,6 @@
 						</button>
 						<div class="collapse" id="account-collapse">
 						  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small my-0">
-							<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
-							<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
 							<li><a href="./php/logout.php" class="link-dark d-inline-flex text-decoration-none rounded" onclick="stopSession()">Sign out</a></li>
 						  </ul>
 						</div>
@@ -104,7 +101,7 @@
 					<main class="ms-sm-auto px-md-4" id="admin-content">
 						<!-- Dashboard -->
 						<div id="main-dashboard" class="admin-panels">
-							<h2>Total no. of </h2>
+							<h2>Total no. of Books:</h2>
 							<p>
 							<?php
 								include_once 'php/conn.php';
@@ -177,6 +174,63 @@
 							<div id="message"></div> <!-- Div for displaying the message -->
 						</div>
 
+						<!-- Editing Books -->
+						<div id="edit-book" class="admin-panels w-100">
+							<h2 class="mx-auto">Book Information</h2>
+							<form id="edit-book-form" class="m-0" action="" method="POST" enctype="multipart/form-data">
+								<div class="row">
+									<div class="col-lg-6">
+										<label for="cover_image">Cover Image:</label>
+										<img src="" class="img-fluid w-50" id="cover">
+										<input type="file" name="edit-cover_image" id="edit-cover_image" onchange="previewFile()" accept=".jpg,.png">
+
+										<label for="availability">Availability:</label>
+										<select name="edit-availability" id="edit-availability" required>
+											<option value="1">Available</option>
+											<option value="0">Not Available</option>
+										</select>
+
+										<label for="quantity">Quantity:</label>
+										<input type="number" name="edit-quantity" id="edit-quantity" min="1" value="1" required>
+									</div>
+									<div class="col-lg-6">
+										<label for="title">Title:</label>
+										<input type="text" name="edit-title" id="edit-title" required>
+
+										<label for="author">Author:</label>
+										<input type="text" name="edit-author" id="edit-author" required>
+
+										<label for="description">Description:</label>
+										<textarea name="edit-description" id="edit-description" class="w-100" required></textarea>
+
+										<label for="genre">Genre:</label>
+										<select name="edit-genre" id="edit-genre" required>
+											<!-- Show genres -->
+											<?php
+												include 'php/conn.php';
+
+												$sql = "SELECT * from genres";
+												$result = $conn->query($sql);
+
+												if($result->num_rows > 0){
+													while($row = $result->fetch_assoc()){
+														echo "<option value='".$row['genre']."'>".$row['genre']."</option>";
+													}
+												}else{
+													echo "No options available";
+												}
+
+												$conn->close();
+											?>
+										</select>
+									</div>
+									<input type="text" value="0" id="edit-book-info-mode" hidden>
+									<input type="submit" class="submit m-0" value="Add Book" id="edit-submitbook">
+								</div>
+							</form>
+							<div id="message"></div> <!-- Div for displaying the message -->
+						</div>
+
 						
 						<!-- Viewing Books -->
 						<div id="library" class="admin-panels w-100">
@@ -215,6 +269,17 @@
 						<!-- User Overview -->
 						<div id="user-overview" class="admin-panels w-100">
 							<h1>Statistics</h1>
+							<p>Total number of users:
+								<?php
+									include_once 'php/conn.php';
+
+									$sql = "SELECT COUNT(*) FROM books";
+									$result = $conn -> query($sql);
+									while($row = $result->fetch_assoc()){
+										echo "".$row["COUNT(*)"];
+									}
+									$conn -> close();
+								?></p>
 						</div>
 
 						<!-- Confirm Books -->
@@ -263,14 +328,13 @@ $('#add-book-form').submit(function (e) {
 	let form = document.querySelector('form');
 		formData = new FormData(form);
 	
-	if($('book-info-mode').val() = 0){
-		$.ajax({
-			processData: false,
-			contentType: false,
+	$.ajax({
+		processData: false,
+		contentType: false,
 
-			url: 'php/add_book.php',
-			type: 'POST',
-			data: formData,
+		url: 'php/add_book.php',
+		type: 'POST',
+		data: formData,
 			success: function(response,responseStatus){
 				console.log(responseStatus); // You can handle the response as needed
 				form.reset(); // Reset the form fields after successful submission
@@ -280,8 +344,15 @@ $('#add-book-form').submit(function (e) {
 				console.log("Error: "+responseStatus);
 			}
 		});
-	}else{
-		$.ajax({
+});
+
+$('#edit-book-form').submit(function (e){
+	e.preventDefault();
+
+	let form = document.querySelector('form');
+		formData = new FormData(form);
+
+	$.ajax({
 			processData: false,
 			contentType: false,
 
@@ -297,7 +368,6 @@ $('#add-book-form').submit(function (e) {
 				console.log("Error: "+responseStatus);
 			}
 		});
-	}
 });
 
 function fetchBooks() {
@@ -334,7 +404,7 @@ function previewFile() {
 
 //Edit
 function editBook(){
-	fetch('./php/library_functions.php', {
+	fetch('./library_functions.php', {
     	method: 'GET',
     	body: {
         	action:'getBookInfo'
@@ -349,8 +419,9 @@ function editBook(){
         .then(function(data) {
             // Check if a genre is selected
 			console.log(data);
+			var editform = $("#edit-book-form");
 			$('.admin-panels').hide();
-			$("#main-dashboard").show();
+			$("#edit-book-form").show();
 			$("title").val(data.title);
 			$("author").val(data.author);
 			$("description").val(data.description);
@@ -406,8 +477,8 @@ function displayBooks(books) {
 
         var actionCell = row.insertCell(7);
         var node = document.createElement("div");
-        node.innerHTML += "<form class='stop-submit m-0' action='php/library_functions.php' method='post'><input type='hidden' class='m-0' name='delete' value='"+book.id+"'><input type='submit'  class='bg-transparent text-secondary w-100 m-0' value='Delete'></form>";
-        node.innerHTML += "<form class='stop-submit m-0' action='php/library_functions.php' method='post'><input type='hidden' class='m-0' name='edit' value='"+book.id+"'><input type='submit'  class='bg-transparent text-secondary w-100 m-0' value='Edit'></form>";
+        node.innerHTML += "<form class='stop-submit m-0' action='library_functions.php' method='post'><input type='hidden' class='m-0' name='delete' value='"+book.id+"'><input type='submit'  class='bg-transparent text-secondary w-100 m-0' value='Delete'></form>";
+        node.innerHTML += "<form class='stop-submit m-0' action=''><input type='hidden' class='m-0' name='edit' value='"+book.id+"'><button type='button' class='btn btn-toggle text-primary book-toggle w-100 m-0' id='editbtnsubmit' value='Edit' data-bs-target='edit-book'></button></form>";
         actionCell.appendChild(node.cloneNode(true));
     }
 }
@@ -425,7 +496,6 @@ function filterBooksByGenre(genre) {
         })
         .then(function(data) {
             // Check if a genre is selected
-			console.log(data);
             if (genre) {
                 // Filter books by genre
                 var filteredBooks = data.filter(function(book) {
@@ -457,6 +527,11 @@ function displayConfirmBooks(books) {
     for (var i = 0; i < books.length; i++) {
         var book = books[i];
         var row = table.insertRow(i + 1);
+		var stat = {
+			null : "Pending",
+			0 : "Rejected",
+			1 : "Accepted"
+		}
 
         // Insert cells with book information
         var titleCell = row.insertCell(0);
@@ -478,15 +553,18 @@ function displayConfirmBooks(books) {
         quantityCell.textContent = book.return_date;
 
         var coverImageCell = row.insertCell(6);
-		coverImageCell.textContent = (book.status===null?"Pending":(book.status?"Confirmed":"Rejected"));
+		coverImageCell.textContent = stat[book.status];
         
 		var requesterCell = row.insertCell(7);
 		requesterCell.textContent = book.requester;
 
         var actionCell = row.insertCell(8);
         var node = document.createElement("div");
-        node.innerHTML += "<form class='stop-submit m-0' action='php/library_functions.php' method='post'><input type='hidden' class='m-0' name='reject' value='"+book.id+"'><input type='submit'  class='w-100 m-0' style='background-color:red;' value='Reject'></form>";
-        node.innerHTML += "<form class='stop-submit m-0' action='editBook()'><input type='hidden' class='m-0' name='accept' value='"+book.id+"'><input type='submit'  class='w-100 m-0' style='background-color:green;' value='Accept'></form>";
+		if (book.status === null){
+			node.innerHTML += "<form class='stop-submit m-0' action='library_functions.php' method='post'><input type='hidden' class='m-0' name='reject' value='"+book.id+"'><input type='submit'  class='w-100 m-0' style='background-color:red;' value='Reject'></form>";
+     	    node.innerHTML += "<form class='stop-submit m-0' action='library_functions.php' method='post'><input type='hidden' class='m-0' name='accept' value='"+book.id+"'><input type='submit'  class='w-100 m-0' style='background-color:green;' value='Accept'></form>";
+		}
+        
         actionCell.appendChild(node);
     }
 }
@@ -522,6 +600,11 @@ function filterUsersByStatus(status) {
         });
 }
 
+$('#editbtnsubmit').click(function(){
+	$('.admin-panels').hide();
+	console.log();
+	$('#edit-book').show();
+});
 
 //Toggle main body
 $('.book-toggle').click(function() {
@@ -529,6 +612,12 @@ $('.book-toggle').click(function() {
     var target = '#' + $(this).data('target');
     $(target).show();
 });
+
+window.onload = function(){
+	$('#editbtnsubmit').click(function() {
+		editBook();		
+	})
+}
 
 $('.admin-panels').hide();
 $("#main-dashboard").show();
