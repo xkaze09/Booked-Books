@@ -44,4 +44,23 @@ if ($conn->query($sql_books) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
+// SQL statements to create the books_to_confirm table
+$sql_books_to_confirm = "CREATE TABLE IF NOT EXISTS books_to_confirm (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    description TEXT,
+    genre VARCHAR(50),
+    rent_date DATE,
+    return_date DATE,
+    status VARCHAR(50),
+    request_by VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
+if ($conn->query($sql_books_to_confirm) === TRUE) {
+    echo "Table 'books_to_confirm' created successfully.";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+
 ?>

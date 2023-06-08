@@ -10,32 +10,37 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve the book ID from the query parameter
-$bookId = $_GET['bookId'] ?? null;
+$bookId = $_GET['bookId'];
 
-// Validate the received value
-if ($bookId === null) {
-    $response = array('success' => false, 'message' => 'Invalid book ID');
-} else {
-    // Fetch the book ID from the database
-    $sql = "SELECT id FROM books WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $bookId);
+// Fetch the minimum available book ID from the table
+$stmt = $conn->prepare("SELECT MIN(id) AS min_id FROM books_to_confirm");
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $minId = $row['min_id'];
+
+    // Calculate the actual book ID based on the minimum available ID
+    $actualBookId = $minId + $bookId - 1;
+
+    // Check if the calculated book ID exists in the table
+    $stmt = $conn->prepare("SELECT id FROM books_to_confirm WHERE id = ?");
+    $stmt->bind_param("i", $actualBookId);
     $stmt->execute();
-    $stmt->bind_result($fetchedBookId);
-    
-    if ($stmt->fetch()) {
-        $response = array('success' => true, 'bookId' => $fetchedBookId);
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $response = array('success' => true, 'id' => $actualBookId);
     } else {
         $response = array('success' => false, 'message' => 'Book ID not found');
     }
-
-    $stmt->close();
+} else {
+    $response = array('success' => false, 'message' => 'No books available');
 }
 
-// Return the response as JSON
-header('Content-Type: application/json');
 echo json_encode($response);
 
-$conn->close(); // Close the database connection
+$stmt->close();
+$conn->close();
 ?>

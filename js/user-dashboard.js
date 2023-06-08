@@ -155,90 +155,102 @@ function toggleViewBooks() {
   }
 
 // Function to retrieve the book ID
-function getBookId(bookId) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', './php/get_book_id.php?bookId=' + bookId, false);  // Synchronous request
-    xhr.send();
-  
-    if (xhr.status === 200) {
-      try {
-        var response = JSON.parse(xhr.responseText);
-        if (response.success) {
-          return response.bookId;
-        } else {
-          console.error('Failed to retrieve book ID:', response.message);
-        }
-      } catch (error) {
-        console.error('Failed to parse JSON response:', error);
+function getBookIdFromServer(bookId) {
+  return fetch(`./php/get_book_id.php?bookId=${bookId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to retrieve book ID');
       }
-    } else {
-      console.error('Failed to retrieve book ID:', xhr.statusText);
-    }
-  
-    return null;
-  }
-  // Add a book to the cart
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response from server:', data); // Log the response
+      if (data.success) {
+        return data.id; // Retrieve the correct property name
+      } else {
+        throw new Error(data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Failed to retrieve book ID:', error);
+      throw error;
+    });
+}
+
+
+// Add a book to the cart
 function addToCart(book) {
-    var cartItems = document.getElementById('cart-items');
-    var cartCount = document.getElementById('cart-count');
-  
-    // Retrieve the book ID using the getBookId function
-    var bookId = getBookId(book.id);
-  
-    if (bookId !== null) {
-      // Create a new item element
-      var itemElement = document.createElement('div');
-      itemElement.textContent = book.title;
-      itemElement.setAttribute('data-book-id', bookId);
-  
-      // Append the item to the cart
-      cartItems.appendChild(itemElement);
-  
-      // Update the cart count
-      var count = parseInt(cartCount.textContent) || 0;
-      cartCount.textContent = count + 1;
-    } else {
-      console.error('Failed to retrieve valid book ID for:', book.title);
-    }
-  }
-  
-  function checkoutRent() {
-    var cartItems = document.getElementById('cart-items');
-    var cartCount = document.getElementById('cart-count');
-  
-    // Retrieve the cart items
-    var items = cartItems.children;
-    var books = [];
-  
-    // Retrieve the book IDs from the cart items
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      var bookId = item.getAttribute('data-book-id');
-  
-      // Retrieve the actual book ID using getBookId function
-      var actualBookId = getBookId(bookId);
-      if (actualBookId !== null) {
-        // Push the book object to the books array
-        books.push({ id: actualBookId });
+  var cartItems = document.getElementById('cart-items');
+  var cartCount = document.getElementById('cart-count');
+
+  // Retrieve the book ID using the getBookIdFromServer function
+  getBookIdFromServer(book.id)
+    .then(bookId => {
+      if (bookId !== null) {
+        // Create a new item element
+        var itemElement = document.createElement('div');
+        itemElement.textContent = book.title;
+        itemElement.setAttribute('data-book-id', bookId);
+
+        // Append the item to the cart
+        cartItems.appendChild(itemElement);
+
+        // Update the cart count
+        var count = parseInt(cartCount.textContent) || 0;
+        cartCount.textContent = count + 1;
+      } else {
+        console.error('Failed to retrieve valid book ID for:', book.title);
       }
-    }
-  
-    // Clear the cart items and count
-    cartItems.innerHTML = '';
-    cartCount.textContent = '0';
-  
-    // Call the addToConfirmationTable function to add the books to the confirmation table
-    addToConfirmationTable(books);
-  
-    // Update book quantities in the table and database
-    for (var j = 0; j < books.length; j++) {
-      var book = books[j];
-      updateBookQuantity(book.id, 1);
-    }
-  
-    // Refresh the book list to update the quantity in the table
-    fetchBooks();
-  }
+    })
+    .catch(error => {
+      console.error('Failed to retrieve book ID:', error);
+    });
+}
+  function checkoutRent() {
+  var cartItems = document.getElementById('cart-items');
+  var cartCount = document.getElementById('cart-count');
+
+  // Retrieve the cart items
+  var items = cartItems.children;
+  var books = [];
+
+  // Retrieve the book IDs from the cart items
+  var promises = Array.from(items).map(item => {
+    var bookId = item.getAttribute('data-book-id');
+
+    // Retrieve the actual book ID using getBookIdFromServer function
+    return getBookIdFromServer(bookId)
+      .then(actualBookId => {
+        if (actualBookId !== null) {
+          // Push the book object to the books array
+          books.push({ id: actualBookId });
+        }
+      });
+  });
+
+  // Wait for all promises to resolve
+  Promise.all(promises)
+    .then(() => {
+      // Clear the cart items and count
+      cartItems.innerHTML = '';
+      cartCount.textContent = '0';
+
+      // Call the addToConfirmationTable function to add the books to the confirmation table
+      addToConfirmationTable(books);
+
+      // Update book quantities in the table and database
+      for (var j = 0; j < books.length; j++) {
+        var book = books[j];
+        updateBookQuantity(book.id, 1);
+      }
+
+      // Refresh the book list to update the quantity in the table
+      fetchBooks();
+    })
+    .catch(error => {
+      console.error('Failed to retrieve book ID:', error);
+    });
+}
   
   
   function updateBookQuantity(bookId, rentedQuantity) {
@@ -304,3 +316,62 @@ function addToConfirmationTable(books) {
 
   xhr.send(JSON.stringify({ books: books }));
 }
+
+function fetchConfirmationBooks() {
+  fetch('./php/get_confirmation_books.php')
+    .then(response => response.json())
+    .then(data => {
+      renderConfirmationBooks(data);
+    })
+    .catch(error => {
+      console.error('Error fetching confirmation books:', error);
+    });
+}
+
+function renderConfirmationBooks(books) {
+  const confirmationList = document.getElementById('confirmation-list');
+
+  // Clear existing table rows
+  confirmationList.innerHTML = '';
+
+  books.forEach(book => {
+    const row = document.createElement('tr');
+
+    const titleCell = document.createElement('td');
+    titleCell.textContent = book.title;
+    row.appendChild(titleCell);
+
+    const authorCell = document.createElement('td');
+    authorCell.textContent = book.author;
+    row.appendChild(authorCell);
+
+    const descriptionCell = document.createElement('td');
+    descriptionCell.textContent = book.description;
+    row.appendChild(descriptionCell);
+
+    const genreCell = document.createElement('td');
+    genreCell.textContent = book.genre;
+    row.appendChild(genreCell);
+
+    const rentDateCell = document.createElement('td');
+    rentDateCell.textContent = book.rent_date ? book.rent_date : 'Not available';
+    row.appendChild(rentDateCell);
+
+    const returnDateCell = document.createElement('td');
+    returnDateCell.textContent = book.return_date ? book.return_date : 'Not available';
+    row.appendChild(returnDateCell);
+
+    const statusCell = document.createElement('td');
+    statusCell.textContent = book.status ? book.status : 'Not available';
+    row.appendChild(statusCell);
+
+    const requestedByCell = document.createElement('td');
+    requestedByCell.textContent = book.request_by ? book.request_by : 'Not available';
+    row.appendChild(requestedByCell);
+
+    confirmationList.appendChild(row);
+  });
+}
+
+// Call the function to fetch and display the confirmation books
+fetchConfirmationBooks();
