@@ -478,7 +478,7 @@ function displayBooks(books) {
         var actionCell = row.insertCell(7);
         var node = document.createElement("div");
         node.innerHTML += "<form class='stop-submit m-0' action='library_functions.php' method='post'><input type='hidden' class='m-0' name='delete' value='"+book.id+"'><input type='submit'  class='bg-transparent text-secondary w-100 m-0' value='Delete'></form>";
-        node.innerHTML += "<form class='stop-submit m-0' action=''><input type='hidden' class='m-0' name='edit' value='"+book.id+"'><button type='button' class='btn btn-toggle text-primary book-toggle w-100 m-0' id='editbtnsubmit' value='Edit' data-bs-target='edit-book'></button></form>";
+        node.innerHTML += "<form class='stop-submit m-0'><input type='hidden' class='m-0' name='edit' value='"+book.id+"'><button type='button' class='btn btn-toggle text-primary book-toggle w-100 m-0' id='editbtnsubmit' value='Edit' data-bs-target='edit-book'></button></form>";
         actionCell.appendChild(node.cloneNode(true));
     }
 }

@@ -13,10 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userResult = $conn->query($userSql);
 
         if ($userResult->num_rows > 0) {
-            // if user exists, redirect to the user page
-            $_SESSION["isAdmin"] = FALSE;
-            header("Location: ../index.html");
-            exit();
+            while($row = $userResult->fetch_assoc()){
+                 // if user exists, redirect to the user page
+                $_SESSION["name"] = $username;
+                $_SESSION["isAdmin"] = FALSE;
+                header("Location: ../index.html");
+                exit();
+            }
         }
     } elseif (isset($_POST['admin'])) {
         // check if the user exists in the users table and is an admin
